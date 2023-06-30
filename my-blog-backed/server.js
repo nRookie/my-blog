@@ -54,6 +54,17 @@ app.post('/posts', async (req, res) => {
     }
 });
 
+app.delete('/posts/:id', async (req, res) => {
+    const { id } = req.params;
+  
+    try {
+      console.log("delete received")
+      await Post.findByIdAndDelete(id);
+      res.status(200).json({ message: 'Post deleted successfully' });
+    } catch (error) {
+      res.status(500).json({ message: 'An error occurred while deleting the post', error });
+    }
+  });
 
 const port = process.env.PORT || 3000;
 

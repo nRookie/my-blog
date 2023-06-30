@@ -8,6 +8,7 @@ import CreatePost from './components/CreatePost';
 import { Link } from 'react-router-dom';
 
 import './App.css';
+import DeletePost from './components/deletePost';
 
 function App() {
   console.log("app.js")
@@ -17,13 +18,15 @@ function App() {
       <Header />
       <nav>
           <Link to="/">Home</Link> | 
-          <Link to="/postlist">Post List</Link> | 
-          <Link to="/create">Create Post</Link>
+          <Link to="/">Post List</Link> | 
+          <Link to="/create">Create Post</Link> |
+          <Link to="/deletepost">DeletePost</Link>
       </nav>
       <Routes>
         <Route path="/" element={<PostList/>} />
         <Route path="/post/:id" element={<Post/>} />
         <Route path="/create" element={<CreatePost />} />
+        <Route path="/deletepost/:id" element={<DeletePost />} />
       </Routes>
       <Footer />
     </div>

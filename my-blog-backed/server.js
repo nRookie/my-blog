@@ -66,6 +66,25 @@ app.delete('/posts/:id', async (req, res) => {
     }
   });
 
+
+app.get('/posts/:id', async (req, res) => {
+const { id } = req.params;
+
+try {
+    const post = await Post.findById(id);
+
+    if (!post) {
+    return res.status(404).json({ message: 'Post not found' });
+    }
+
+    res.json(post);
+} catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+}
+});
+
+  
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));

@@ -8,7 +8,8 @@ import CreatePost from './components/CreatePost';
 import { Link } from 'react-router-dom';
 
 import './App.css';
-import DeletePost from './components/deletePost';
+import DeletePost from './components/DeletePost';
+import EditPost from './components/EditPost';
 
 function App() {
   console.log("app.js")
@@ -26,7 +27,8 @@ function App() {
         <Route path="/" element={<PostList/>} />
         <Route path="/post/:id" element={<Post/>} />
         <Route path="/create" element={<CreatePost />} />
-        <Route path="/deletepost/:id" element={<DeletePost />} />
+        <Route path="/delete/:id" element={<DeletePost />} />
+        <Route path="/edit/:id" element={<EditPost />} />
       </Routes>
       <Footer />
     </div>

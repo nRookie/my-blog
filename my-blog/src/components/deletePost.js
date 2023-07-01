@@ -2,6 +2,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
+// this is not used anymore, but I want to use the Deleting button method in post delete method
 function DeletePost() {
   const { id } = useParams();
   const [isDeleting, setIsDeleting] = React.useState(false);

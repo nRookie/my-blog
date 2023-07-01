@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 
 function Post() {
   const { id } = useParams();
@@ -39,7 +39,8 @@ function Post() {
     <div>
       <h2>{post.title}</h2>
       <p>{post.content}</p>
-      <button onClick={deletePost}>Delete Post</button>
+      <Link to={`/edit/${post._id}`}>Edit</Link>
+      <Link to={`/delete/${post._id}`}>Delete</Link>
     </div>
   );
 }

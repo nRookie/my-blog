@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 
 const VocabularyList = () => {
     const dispatch = useDispatch();
-    console.log("vocabulary")
 
     useEffect(() => {
         const fetchData = async () => {

@@ -17,7 +17,8 @@ import './App.css';
 import './Navbar.css'
 import store from "./components/vocabulary/store";
 import {Provider} from "react-redux";
-import { ErrorBoundary } from 'react-error-boundary';  // You may need to install this package
+import { ErrorBoundary } from 'react-error-boundary';
+import CreateVocabularyList from "./components/vocabulary/CreateVocabularyList";  // You may need to install this package
 
 
 
@@ -35,8 +36,6 @@ function ErrorFallback({ error }) {
 
 
 function App() {
-    console.log(store)
-    console.log(store.getState())
     return (
         <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Provider store={store}>
@@ -48,6 +47,7 @@ function App() {
                     <Link to="/post">Post List</Link>
                     <Link to="/create">Create Post</Link>
                     <Link to="/vocabulary">Vocabulary</Link>
+                    <Link to="/create-vocabulary-list">Create Vocabulary List</Link>
                 </nav>
 
                 <Routes>
@@ -61,6 +61,7 @@ function App() {
                             <Route index element={<VocabularyList/>}/>
                             <Route path="day/:day" element={<VocabularyDay/>}/>
                         </Route>
+                       <Route path="/create-vocabulary-list" element={<CreateVocabularyList />}/>
                 </Routes>
                 <Footer/>
             </div>

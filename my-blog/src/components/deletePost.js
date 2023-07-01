@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import "./DeletePost.css"
 
 // this is not used anymore, but I want to use the Deleting button method in post delete method
 function DeletePost() {
@@ -24,9 +25,9 @@ function DeletePost() {
   };
 
   return (
-    <div>
-      <p>Are you sure you want to delete this post?</p>
-      <button onClick={deletePost} disabled={isDeleting}>
+    <div className="deletePost">
+      <p className="confirmation">Are you sure you want to delete this post?</p>
+      <button className="deleteButton" onClick={deletePost} disabled={isDeleting}>
         {isDeleting ? 'Deleting...' : 'Delete'}
       </button>
     </div>

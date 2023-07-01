@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
+import "./CreatePost.css"
 
 const CreatePost= () => {
     const [title, setTitle] = useState('');
@@ -22,12 +23,12 @@ const CreatePost= () => {
     };
 
     return (
-        <div>
-            <form onSubmit={handleSubmit}>
+        <div className="createPostContainer">
+            <form className="createPostForm" onSubmit={handleSubmit}>
                 <label>Title:</label>
                 <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
 
-                <label>Body:</label>
+                <label>Content:</label>
                 <textarea value={body} onChange={(e) => setbody(e.target.value)} />
 
                 <button type="submit" >Submit</button>

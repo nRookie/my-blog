@@ -5,6 +5,7 @@ const cors = require('cors');
 // Define the schema for a post
 const postSchema = new mongoose.Schema({
     title: String,
+    description: String,
     content: String,
     date: { type: Date, default: Date.now }
 });
@@ -28,7 +29,6 @@ mongoose.connect('mongodb://localhost:27017/my-blog', { useNewUrlParser: true, u
 // Define your API endpoint
 app.get('/posts', async (req, res) => {
     try {
-        console.log("get received")
         const posts = await Post.find();
         res.status(200).json(posts);
     } catch (err) {
@@ -38,11 +38,10 @@ app.get('/posts', async (req, res) => {
 
 
 app.post('/posts', async (req, res) => {
-    console.log("post received")
-    console.log(req)
     const newPost = new Post({
         title: req.body.title,
-        content: req.body.body,
+        description: req.body.description,
+        content: req.body.content,
     });
 
     try {
@@ -58,7 +57,6 @@ app.delete('/posts/:id', async (req, res) => {
     const { id } = req.params;
   
     try {
-      console.log("delete received")
       await Post.findByIdAndDelete(id);
       res.status(200).json({ message: 'Post deleted successfully' });
     } catch (error) {

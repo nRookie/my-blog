@@ -5,7 +5,8 @@ import "./CreatePost.css"
 
 const CreatePost= () => {
     const [title, setTitle] = useState('');
-    const [body, setbody] = useState('');
+    const [description, setDescription] = useState('');
+    const [content, setContent] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async(e) => {
@@ -13,9 +14,9 @@ const CreatePost= () => {
 
         const newPost = {
             title,
-            body
+            description,
+            content,
         };
-        console.log("createPost: handle submit")
 
         await axios.post('http://localhost:3000/posts', newPost);
 
@@ -28,8 +29,11 @@ const CreatePost= () => {
                 <label>Title:</label>
                 <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
 
+                <label>description:</label>
+                <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} />
+
                 <label>Content:</label>
-                <textarea value={body} onChange={(e) => setbody(e.target.value)} />
+                <textarea value={content} onChange={(e) => setContent(e.target.value)} />
 
                 <button type="submit" >Submit</button>
             </form>

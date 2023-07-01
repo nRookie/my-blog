@@ -12,14 +12,16 @@ import HomePage from './components/HomePage';
 import Vocabulary from "./components/vocabulary/Vocabulary";
 import VocabularyList from "./components/vocabulary/VocabularyList";
 import VocabularyDay from "./components/vocabulary/VocabularyDay";
-import {VocabularyProvider} from "./components/vocabulary/Context";
 
 import './App.css';
 import './Navbar.css'
+import store from "./components/vocabulary/store";
+import {Provider} from "react-redux";
 
 
 function App() {
     return (
+        <Provider store={store}>
         <Router>
             <div className="App">
                 <Header/>
@@ -29,7 +31,7 @@ function App() {
                     <Link to="/create">Create Post</Link>
                     <Link to="/vocabulary">Vocabulary</Link>
                 </nav>
-                <VocabularyProvider>
+
                 <Routes>
                         <Route path="/" element={<HomePage/>}/>
                         <Route path="/post" element={<PostList/>}/>
@@ -42,10 +44,10 @@ function App() {
                             <Route path="day/:day" element={<VocabularyDay/>}/>
                         </Route>
                 </Routes>
-                </VocabularyProvider>
                 <Footer/>
             </div>
         </Router>
+        </Provider>
     );
 }
 

@@ -1,21 +1,26 @@
-import React, {useContext} from 'react';
+// VocabularyDay.js
+
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import {VocabularyContext} from "./Context";
+import { useSelector } from 'react-redux';
 
 const VocabularyDay = () => {
     const { day } = useParams();
-    const { vocabData} = useContext(VocabularyContext);
 
-    const vocab = vocabData.find(vocab => vocab.day === Number(day))
+    // Get the vocabData from the Redux store
+    const vocabData = useSelector(state => state.vocabulary.vocabData);
+
+    // Find the vocab for the current day
+    const vocab = vocabData.find(vocab => vocab.day === parseInt(day)).vocab;
 
     return (
         <div>
             <h2>Day {day}</h2>
             <ul>
-                {vocab && vocab.vocab.map((word, index) => <li key={index}> {word}</li>)}
+                {vocab.map((word, index) => <li key={index}>{word}</li>)}
             </ul>
         </div>
-    )
+    );
 }
 
 export default VocabularyDay;

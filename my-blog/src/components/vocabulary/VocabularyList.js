@@ -1,23 +1,35 @@
-import React from 'react';
+// VocabularyList.js
+
+import React, { useEffect } from 'react';
+import {useDispatch, useSelector} from 'react-redux';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-// Sample vocabulary data
-const vocabData = [
-    { day: 1, vocab: ['word1', 'word2', 'word3'] },
-    { day: 2, vocab: ['word4', 'word5', 'word6'] },
-    // ...
-];
-
 const VocabularyList = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const response = await axios.get('http://localhost:3000/vocabulary');
+            dispatch({ type: 'SET_VOCAB_DATA', payload: response.data });
+        }
+        fetchData();
+    }, [dispatch]);
+
+    // Get the vocabData from the Redux store instead of local state
+    const vocabData = useSelector(state => state.vocabulary.vocabData);
+
     return (
         <ul>
             {vocabData.map((vocab, index) => (
                 <li key={index}>
-                <Link to={`day/${vocab.day}`}>Day {vocab.day}</Link>
+                    <Link to={`day/${vocab.day}`}>
+                        Day {vocab.day}
+                    </Link>
                 </li>
             ))}
         </ul>
-    )
+    );
 }
 
 export default VocabularyList;

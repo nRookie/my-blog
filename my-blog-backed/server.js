@@ -100,6 +100,21 @@ app.put('/posts/:id', async(req, res) => {
     }
 });
 
+
+app.get('/vocabulary', async (req, res) => {
+    const vocabList = await Vocabulary.find();
+    res.json(vocabList);
+});
+
+app.post('/vocabulary', async (req, res) => {
+    const vocab = new Vocabulary({
+        day: req.body.day,
+        vocab: req.body.vocab
+    });
+    const savedVocab = await vocab.save();
+    res.json(savedVocab);
+});
+
   
 const port = process.env.PORT || 3000;
 

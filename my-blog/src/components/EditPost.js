@@ -25,7 +25,7 @@ function EditPost() {
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.put(`http://localhost:3000/posts/${id}`, {title, content, description})
-        .then(() => navigate('/'))
+        .then(() => navigate('/Post'))
         .catch(err => console.error(err))
     }
 

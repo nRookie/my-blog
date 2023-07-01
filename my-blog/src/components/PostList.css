@@ -17,7 +17,7 @@
 }
 
 .postTitle {
-    color: #333;
+    color: #0b0b0b;
     text-decoration: none;
 }
 
@@ -26,5 +26,18 @@
 }
 
 .postBody {
-    color: #666;
+    color: #111;
+}
+
+.postTitleLink {
+    text-decoration: none; /* Removes underline */
+    color: black; /* Makes the text black, or use any color you want */
+    font-weight: bold; /* Makes the font bold */
+    font-size: 1.5em; /* Increase the font size */
+    transition: color 0.3s ease; /* Adds smooth transition effect when color changes */
+}
+
+/* Change link color on hover */
+.postTitleLink:hover {
+    color: grey; /* Change color on hover */
 }

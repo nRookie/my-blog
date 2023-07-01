@@ -1,6 +1,7 @@
 import React, { useState, useEffect} from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import "./PostList.css"
 
 const PostList = () => {
     const [posts, setPosts] = useState([]);
@@ -16,8 +17,8 @@ const PostList = () => {
     return (
         <div className="postList">
           {posts.map(post => (
-            <div key={post._id} className="postListItem2">
-              <h2 className="postTitle"><Link to={`/post/${post._id}`}>{post.title}</Link></h2>
+            <div key={post._id} className="postListItem">
+              <h2 className="postTitle"><Link className = "postTitleLink" to={`/post/${post._id}`}>{post.title}</Link></h2>
               <p className="postBody">{post.body}</p>
             </div>
           ))}

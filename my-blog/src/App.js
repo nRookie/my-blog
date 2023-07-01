@@ -17,10 +17,28 @@ import './App.css';
 import './Navbar.css'
 import store from "./components/vocabulary/store";
 import {Provider} from "react-redux";
+import { ErrorBoundary } from 'react-error-boundary';  // You may need to install this package
+
+
+
+function ErrorFallback({ error }) {
+    return (
+        <div>
+            <h2>Something went wrong:</h2>
+            <details style={{ whiteSpace: 'pre-wrap' }}>
+                {error.toString()}
+            </details>
+        </div>
+    );
+}
+
 
 
 function App() {
+    console.log(store)
+    console.log(store.getState())
     return (
+        <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Provider store={store}>
         <Router>
             <div className="App">
@@ -48,6 +66,7 @@ function App() {
             </div>
         </Router>
         </Provider>
+    </ErrorBoundary>
     );
 }
 

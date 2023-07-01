@@ -10,8 +10,16 @@ const postSchema = new mongoose.Schema({
     date: { type: Date, default: Date.now }
 });
 
+const vocabularySchema = new mongoose.Schema({
+    title: String,
+    description: String,
+    content: String,
+    date: { type: Date, default: Date.now }
+});
 // Create a model from that schema
 const Post = mongoose.model('Post', postSchema);
+
+const Vocabulary =  mongoose.model('vocabulary', vocabularySchema);
 
 const app = express();
 

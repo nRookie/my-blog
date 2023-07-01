@@ -6,12 +6,13 @@ import { useSelector } from 'react-redux';
 
 const VocabularyDay = () => {
     const { day } = useParams();
-
-    // Get the vocabData from the Redux store
     const vocabData = useSelector(state => state.vocabulary.vocabData);
 
-    // Find the vocab for the current day
-    const vocab = vocabData.find(vocab => vocab.day === parseInt(day)).vocab;
+    // Use a fallback value in case there's no matching vocab for the day
+    const vocabObject = vocabData.find(vocab => vocab.day === parseInt(day)) || {vocab: []};
+
+    // Access vocab property from the vocabObject
+    const vocab = vocabObject.vocab;
 
     return (
         <div>

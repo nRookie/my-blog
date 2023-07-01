@@ -7,14 +7,21 @@ import { Link } from 'react-router-dom';
 
 const VocabularyList = () => {
     const dispatch = useDispatch();
+    console.log("vocabulary")
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get('http://localhost:3000/vocabulary');
-            dispatch({ type: 'SET_VOCAB_DATA', payload: response.data });
+            try {
+                const response = await axios.get('http://localhost:3000/vocabulary');
+                console.log(response.data);
+                dispatch({ type: 'SET_VOCAB_DATA', payload: response.data });
+            } catch (error) {
+                console.error(error);
+            }
         }
         fetchData();
     }, [dispatch]);
+
 
     // Get the vocabData from the Redux store instead of local state
     const vocabData = useSelector(state => state.vocabulary.vocabData);

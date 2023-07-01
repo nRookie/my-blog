@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import "./Post.css"
+import serverAddress from '../config.js';
 
 function Post() {
   const { id } = useParams();
   const [post, setPost] = useState({});
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/posts/${id}`)
+    axios.get(`${serverAddress}/posts/${id}`)
       .then(res => {
         setPost(res.data);
       })

@@ -24,21 +24,23 @@
   color: white;
 }
 
-/* .header {
-  background: url('resources/prairie.jpeg') no-repeat center center fixed; 
+.header {
+  background-color: #00ff1e;
+  /* background: url('resources/prairie.jpeg') no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
+  background-size: cover; */
 }
 
 .footer {
-  background: url('resources/prairie.jpeg') no-repeat center center fixed; 
+  background-color: #00ff04;
+  /* background: url('resources/prairie.jpeg') no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover;
-} */
+  background-size: cover; */
+} 
 
 
 

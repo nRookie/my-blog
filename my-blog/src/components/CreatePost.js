@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 import "./CreatePost.css"
+import serverAddress from '../config.js';
 
 const CreatePost= () => {
     const [title, setTitle] = useState('');
@@ -18,7 +19,7 @@ const CreatePost= () => {
             content,
         };
 
-        await axios.post('http://localhost:3000/posts', newPost);
+        await axios.post(`${serverAddress}/posts`, newPost);
 
         navigate("/Post")
     };

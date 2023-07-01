@@ -2,7 +2,7 @@ import React from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "./DeletePost.css"
-
+import serverAddress from '../config.js';
 // this is not used anymore, but I want to use the Deleting button method in post delete method
 function DeletePost() {
   const { id } = useParams();
@@ -13,7 +13,7 @@ function DeletePost() {
   const deletePost = () => {
     setIsDeleting(true);
 
-    axios.delete(`http://localhost:3000/posts/${id}`)
+    axios.delete(`${serverAddress}/posts/${id}`)
       .then(response => {
         setIsDeleting(false);
         navigate('/post')

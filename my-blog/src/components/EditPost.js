@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import "./EditPost.css"
+import serverAddress from '../config.js';
 
 function EditPost() {
     const [title, setTitle] = useState('')
@@ -12,7 +13,7 @@ function EditPost() {
 
 
     useEffect( () =>  {
-        axios.get(`http://localhost:3000/posts/${id}`)
+        axios.get(`${serverAddress}/posts/${id}`)
         .then(res => {
             setTitle(res.data.title);
             setContent(res.data.content);
@@ -24,7 +25,7 @@ function EditPost() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put(`http://localhost:3000/posts/${id}`, {title, content, description})
+        axios.put(`${serverAddress}/posts/${id}`, {title, content, description})
         .then(() => navigate('/Post'))
         .catch(err => console.error(err))
     }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import "./Post.css"
-import serverAddress from '../config.js';
+import serverAddress from '../../config.js';
 
 function Post() {
   const { id } = useParams();

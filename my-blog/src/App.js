@@ -2,12 +2,12 @@ import React from 'react';
 import { BrowserRouter as Router, Route,Routes } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import PostList from './components/PostList';
-import Post from './components/Post';
-import CreatePost from './components/CreatePost';
+import PostList from './components/Post/PostList';
+import Post from './components/Post/Post';
+import CreatePost from './components/Post/CreatePost';
 import { Link } from 'react-router-dom';
-import DeletePost from './components/DeletePost';
-import EditPost from './components/EditPost';
+import DeletePost from './components/Post/DeletePost';
+import EditPost from './components/Post/EditPost';
 import HomePage from './components/HomePage';
 
 import './App.css';

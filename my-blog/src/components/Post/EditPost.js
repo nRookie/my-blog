@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
 import "./EditPost.css"
-import serverAddress from '../config.js';
+import serverAddress from '../../config.js';
 
 function EditPost() {
     const [title, setTitle] = useState('')

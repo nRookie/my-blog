@@ -34,7 +34,6 @@ function Post() {
     }
   };
 
-  console.log(post)
   return (
     <div>
       <h2>{post.title}</h2>

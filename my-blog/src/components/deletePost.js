@@ -1,20 +1,21 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 // this is not used anymore, but I want to use the Deleting button method in post delete method
 function DeletePost() {
   const { id } = useParams();
   const [isDeleting, setIsDeleting] = React.useState(false);
+
+  const navigate = useNavigate()
   
   const deletePost = () => {
     setIsDeleting(true);
 
-    console.log("set to true")
     axios.delete(`http://localhost:3000/posts/${id}`)
       .then(response => {
-        console.log(response.data);
         setIsDeleting(false);
+        navigate('/post')
       })
       .catch(error => {
         console.error('There was an error!', error);

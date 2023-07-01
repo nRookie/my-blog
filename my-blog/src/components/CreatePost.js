@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
-
 
 const CreatePost= () => {
     const [title, setTitle] = useState('');
     const [body, setbody] = useState('');
+    const navigate = useNavigate();
 
-    console.log("in create post")
     const handleSubmit = async(e) => {
         e.preventDefault();
 
@@ -18,8 +18,7 @@ const CreatePost= () => {
 
         await axios.post('http://localhost:3000/posts', newPost);
 
-        setTitle('');
-        setbody('');
+        navigate("/Post")
     };
 
     return (

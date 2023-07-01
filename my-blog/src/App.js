@@ -6,10 +6,13 @@ import PostList from './components/PostList';
 import Post from './components/Post';
 import CreatePost from './components/CreatePost';
 import { Link } from 'react-router-dom';
-
-import './App.css';
 import DeletePost from './components/DeletePost';
 import EditPost from './components/EditPost';
+import HomePage from './components/HomePage';
+
+import './App.css';
+import './Navbar.css'
+
 
 function App() {
   console.log("app.js")
@@ -17,14 +20,14 @@ function App() {
    <Router>
     <div className="App">
       <Header />
-      <nav>
-          <Link to="/">Home</Link> | 
-          <Link to="/">Post List</Link> | 
-          <Link to="/create">Create Post</Link> |
-          <Link to="/deletepost">DeletePost</Link>
+      <nav className="navbar">
+          <Link to="/">Home</Link> 
+          <Link to="/post">Post List</Link>
+          <Link to="/create">Create Post</Link> 
       </nav>
       <Routes>
-        <Route path="/" element={<PostList/>} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/post" element={<PostList/>} />
         <Route path="/post/:id" element={<Post/>} />
         <Route path="/create" element={<CreatePost />} />
         <Route path="/delete/:id" element={<DeletePost />} />

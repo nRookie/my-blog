@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-
+import "./EditPost.css"
 
 function EditPost() {
     const [title, setTitle] = useState('')
@@ -28,11 +28,15 @@ function EditPost() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="text" value={title} onChange= {e => setTitle(e.target.value)} />
-            <textarea value={content} onChange={e => setContent(e.target.value)} />
-            <button type="submit">Save</button>
-        </form>
+        <div className="editPostContainer">
+            <form onSubmit={handleSubmit} className="editPostForm">
+                <label className="editPostLabel">Title:</label>
+                <input className="editPostInput" type="text" value={title} onChange= {e => setTitle(e.target.value)} />
+                <label className="editPostLabel">Content:</label>
+                <textarea className='editPostTextarea' value={content} onChange={e => setContent(e.target.value)} />
+                <button className="editPostButton" type="submit">Save</button>
+            </form>
+        </div>
     );
 }
 

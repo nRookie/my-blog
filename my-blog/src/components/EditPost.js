@@ -6,6 +6,7 @@ import "./EditPost.css"
 function EditPost() {
     const [title, setTitle] = useState('')
     const [content,setContent] = useState('')
+    const [description, setDescription] = useState('')
     const {id} = useParams();
     const navigate = useNavigate();
 
@@ -15,6 +16,7 @@ function EditPost() {
         .then(res => {
             setTitle(res.data.title);
             setContent(res.data.content);
+            setDescription(res.data.description)
         })
         .catch(err => console.error(err));
     }, [id]);
@@ -22,7 +24,7 @@ function EditPost() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.put(`http://localhost:3000/posts/${id}`, {title, content})
+        axios.put(`http://localhost:3000/posts/${id}`, {title, content, description})
         .then(() => navigate('/'))
         .catch(err => console.error(err))
     }
@@ -32,6 +34,8 @@ function EditPost() {
             <form onSubmit={handleSubmit} className="editPostForm">
                 <label className="editPostLabel">Title:</label>
                 <input className="editPostInput" type="text" value={title} onChange= {e => setTitle(e.target.value)} />
+                <label className="editPostLabel">Description:</label>
+                <input className="editPostInput" type="text" value={description} onChange= {e => setDescription(e.target.value)} />
                 <label className="editPostLabel">Content:</label>
                 <textarea className='editPostTextarea' value={content} onChange={e => setContent(e.target.value)} />
                 <button className="editPostButton" type="submit">Save</button>

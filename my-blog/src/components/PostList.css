@@ -29,6 +29,10 @@
     color: rgb(47, 183, 95);
 }
 
+.postDescription {
+    color: rgb(47, 183, 95);
+}
+
 .postTitleLink {
     text-decoration: none; /* Removes underline */
     color: black; /* Makes the text black, or use any color you want */

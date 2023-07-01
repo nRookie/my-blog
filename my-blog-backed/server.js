@@ -89,9 +89,9 @@ app.put('/posts/:id', async(req, res) => {
         if (!post) {
             return res.status(404).json({ error: 'Post not found'});
         }
-
         post.title = req.body.title || post.title;
         post.content = req.body.content || post.content;
+        post.description = req.body.description || post.description;
         const updatedPost = await post.save();
 
         res.json(updatedPost);

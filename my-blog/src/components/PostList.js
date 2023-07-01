@@ -19,7 +19,7 @@ const PostList = () => {
           {posts.map(post => (
             <div key={post._id} className="postListItem">
               <h2><Link className = "postTitleLink" to={`/post/${post._id}`}>{post.title}</Link></h2>
-              <p className="postContent">{post.content}</p>
+              <p className="postDescription">{post.description}</p>
             </div>
           ))}
         </div>

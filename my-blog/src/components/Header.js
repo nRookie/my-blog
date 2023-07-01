@@ -3,7 +3,7 @@ import React from 'react';
 const Header = () => {
     return (
         <header>
-            <h1>Welcome to My Blog</h1>
+            <h1>Welcome to Japanese Learning Blog</h1>
         </header>
     );
 };

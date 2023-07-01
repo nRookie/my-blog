@@ -7,7 +7,7 @@ function EditPost() {
     const [title, setTitle] = useState('')
     const [content,setContent] = useState('')
     const {id} = useParams();
-    const naviagte = useNavigate();
+    const navigate = useNavigate();
 
 
     useEffect( () =>  {
@@ -23,7 +23,7 @@ function EditPost() {
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.put(`http://localhost:3000/posts/${id}`, {title, content})
-        .then(() => Navigate('/'))
+        .then(() => navigate('/'))
         .catch(err => console.error(err))
     }
 

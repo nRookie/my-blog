@@ -84,6 +84,24 @@ try {
 }
 });
 
+
+app.put('/posts/:id', async(req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        if (!post) {
+            return res.status(404).json({ error: 'Post not found'});
+        }
+
+        post.title = req.body.title || post.title;
+        post.content = req.body.content || post.content;
+        const updatedPost = await post.save();
+
+        res.json(updatedPost);
+    } catch(err) {
+        res.status(500).json({ error: 'Server error'});
+    }
+});
+
   
 const port = process.env.PORT || 3000;
 

@@ -7,13 +7,14 @@ import { Link } from 'react-router-dom';
 
 const VocabularyList = () => {
     const dispatch = useDispatch();
-
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get('http://localhost:3000/vocabulary');
                 console.log(response.data);
                 dispatch({ type: 'SET_VOCAB_DATA', payload: response.data });
+                console.log("dispatch xxx")
+                console.log(dispatch({ type: 'SET_VOCAB_DATA', payload: response.data }))
             } catch (error) {
                 console.error(error);
             }

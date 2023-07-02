@@ -12,9 +12,12 @@ const CreateVocabularyList = () => {
     }
 
     const handleSubmit = (event) => {
+        console.log("handle submit called")
         event.preventDefault();
         // Dispatch the action to add the new vocabData
-        dispatch({ type: 'ADD_VOCAB_DATA', payload: vocabData });
+        const a = dispatch({ type: 'ADD_VOCAB_DATA', payload: vocabData });
+        console.log("after dispatch")
+        console.log(a)
         // Clear the input fields
         setVocabData({ day: "", vocab: [] });
     }

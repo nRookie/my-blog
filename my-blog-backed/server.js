@@ -37,8 +37,6 @@ const Vocabulary = mongoose.model('vocabulary', vocabularySchema);
 
 const VocabularyDay = mongoose.model('vocabularyDay', vocabularyDaySchema)
 
-VocabularyDay.createIndexes()
-
 const app = express();
 
 // Enable CORS (Cross-Origin Resource Sharing)
@@ -139,14 +137,31 @@ app.get('/vocabulary_day', async (req, res) => {
     res.json(vocabList);
 });
 
+
 app.post('/vocabulary_day', async (req, res) => {
-    const vocab = new VocabularyDay({
+    console.log("received_vocabulary_day")
+    try {
+      const vocab = new VocabularyDay({
         day: req.body.day,
         description: req.body.description
-    });
-    const savedVocab = await vocab.save();
-    res.json(savedVocab);
-});
+      });
+      console.log("after ")
+      const savedVocab = await vocab.save();
+      res.json(savedVocab);
+    } catch (error) {
+      if (error.code === 11000 && error.keyPattern && error.keyPattern.day) {
+        // If the error is due to a duplicate key (day), handle it appropriately
+        console.log(111)
+        res.status(400).json({ error: 'Duplicate day value. Please choose a different day.' });
+      } else {
+        // Handle other errors
+        console.log(200)
+        res.status(500).json({ error: 'An error occurred while saving the vocabulary.' });
+      }
+    }
+  });
+
+
 
 app.post('/vocabulary', async (req, res) => {
     const vocab = new Vocabulary({

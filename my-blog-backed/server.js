@@ -2,7 +2,6 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 
-const Schema = mongoose.Schema
 // Define the schema for a post
 const postSchema = new mongoose.Schema({
     title: String,
@@ -13,17 +12,17 @@ const postSchema = new mongoose.Schema({
 
 const vocabularySchema = new mongoose.Schema({
     day: {
-        type: Schema.Number,
+        type: Number,
         unique: true,
         required: true,
     },
     vocabulary: String,
     vocabularyExplaination: String,
-    date: {type: Date, default: Date.now}
+    date: { type: Date, default: Date.now }
 });
 
 const vocabularyDaySchema = new mongoose.Schema({
-    day: Schema.Number,
+    day: Number,
     description: String,
     date: {type: Date, default: Date.now}
 })

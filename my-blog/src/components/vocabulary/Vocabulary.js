@@ -1,28 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import axios from "axios";
+import serverAddress from "../../config";
 
 const Vocabulary = () => {
-    // Access vocabulary data from Redux store
-    const vocabData = useSelector(state => state.vocabulary.vocabData);
+    const [vocabulary, setVocabulary] =  useState(null);
 
-    console.log(vocabData)
     // Display data when it's available
     useEffect(() => {
-        console.log(vocabData);
-    }, [vocabData]);
+        axios.get(`${serverAddress}/vocabulary_day/`)
+            .then(res => {
+                setVocabulary(res.data);
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    }, []);
 
     return (
         <div>
             <h1>Vocabulary Camp</h1>
             {/* If you want to display the vocabData on the page */}
-            {vocabData && vocabData.map((vocab, index) => (
-                <div key={index}>
-                    <h2>Day {vocab.day}</h2>
-                    <ul>
-                    </ul>
-                </div>
-            ))}
+            {vocabulary ? (
+                // Replace this with how you want to render your data
+                <div>{JSON.stringify(vocabulary)}</div>
+            ) : (
+                <div>Loading...</div>
+            )}
             <Outlet />
         </div>
     );

@@ -12,7 +12,11 @@ const postSchema = new mongoose.Schema({
 });
 
 const vocabularySchema = new mongoose.Schema({
-    day: Schema.Number,
+    day: {
+        type: Schema.Number,
+        unique: true,
+        required: true,
+    },
     vocabulary: String,
     vocabularyExplaination: String,
     date: {type: Date, default: Date.now}
@@ -147,7 +151,6 @@ app.post('/vocabulary', async (req, res) => {
     const savedVocab = await vocab.save();
     res.json(savedVocab);
 });
-
 
 
 const port = process.env.PORT || 3000;

@@ -47,7 +47,7 @@ function App() {
                     <Link to="/post">Post List</Link>
                     <Link to="/create">Create Post</Link>
                     <Link to="/vocabulary">Vocabulary</Link>
-                    <Link to="/create-vocabulary-list">Create Vocabulary List</Link>
+                    <Link to="/create-vocabulary-list">Create Vocabulary Day</Link>
                 </nav>
 
                 <Routes>

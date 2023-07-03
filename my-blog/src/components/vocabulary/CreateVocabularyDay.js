@@ -1,37 +1,43 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from "axios";
+import serverAddress from "../../config";
 
 const CreateVocabularyDay = () => {
-    const dispatch = useDispatch();
 
-    const [vocabData, setVocabData] = useState({ day: "", vocab: [] });
+    /**TODO: get the day from the database by default*/
+    const [day, setDay] = useState(0)
+    const [description, setDescription] = useState("")
+    const navigate = useNavigate();
 
-    const handleChange = (event) => {
-        setVocabData({ ...vocabData, [event.target.name]: event.target.value });
-    }
+    const handleSubmit = async(e) => {
+        e.preventDefault();
 
-    const handleSubmit = (event) => {
-        console.log("handle submit called")
-        event.preventDefault();
-        // Dispatch the action to add the new vocabData
-        const a = dispatch({ type: 'ADD_VOCAB_DATA', payload: vocabData });
-        console.log("after dispatch")
-        // Clear the input fields
-        setVocabData({ day: "", vocab: [] });
-    }
+        const newVocabularyDay = {
+            day,
+            description,
+        };
+
+        await axios.post(`${serverAddress}/vocabulary_day`, newVocabularyDay);
+
+        navigate("/Vocabulary")
+    };
 
     return (
         <div>
-            <h2>Add New Vocabulary List</h2>
+            <h2>Add New Vocabulary Day</h2>
             <form onSubmit={handleSubmit}>
                 <label>
                     Day:
-                    <input type="text" name="day" value={vocabData.day} onChange={handleChange} required />
+                    <input type="text" name="day" value={day} onChange={(event) => {
+                        setDay(event.target.value)
+                    }} required />
                 </label>
                 <label>
-                    Vocabulary:
-                    <input type="text" name="vocab" value={vocabData.vocab} onChange={handleChange} required />
+                    Description:
+                    <input type="text" name="description" value={description} onChange={(event) => {
+                        setDescription(event.target.value)
+                    }} required />
                 </label>
                 <button type="submit">Add</button>
             </form>

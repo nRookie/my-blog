@@ -13,7 +13,6 @@ const postSchema = new mongoose.Schema({
 const vocabularySchema = new mongoose.Schema({
     day: {
         type: Number,
-        unique: true,
         required: true,
     },
     vocabulary: String,
@@ -22,7 +21,11 @@ const vocabularySchema = new mongoose.Schema({
 });
 
 const vocabularyDaySchema = new mongoose.Schema({
-    day: Number,
+    day: {
+        type: Number,
+        unique: true,
+        required: true,
+    },
     description: String,
     date: {type: Date, default: Date.now}
 })
@@ -32,6 +35,8 @@ const Post = mongoose.model('Post', postSchema);
 const Vocabulary = mongoose.model('vocabulary', vocabularySchema);
 
 const VocabularyDay = mongoose.model('vocabularyDay', vocabularyDaySchema)
+
+
 const app = express();
 
 // Enable CORS (Cross-Origin Resource Sharing)
@@ -133,7 +138,7 @@ app.get('/vocabulary_day', async (req, res) => {
 });
 
 app.post('/vocabulary_day', async (req, res) => {
-    const vocab = new Vocabulary({
+    const vocab = new VocabularyDay({
         day: req.body.day,
         description: req.body.description
     });

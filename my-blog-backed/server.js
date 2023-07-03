@@ -25,6 +25,7 @@ const vocabularyDaySchema = new mongoose.Schema({
         type: Number,
         unique: true,
         required: true,
+        index: true // Add this line
     },
     description: String,
     date: {type: Date, default: Date.now}
@@ -36,6 +37,7 @@ const Vocabulary = mongoose.model('vocabulary', vocabularySchema);
 
 const VocabularyDay = mongoose.model('vocabularyDay', vocabularyDaySchema)
 
+VocabularyDay.createIndexes()
 
 const app = express();
 

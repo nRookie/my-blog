@@ -23,9 +23,12 @@ const VocabularyList = () => {
     }, [dispatch]);
 
 
+    console.log("get vocabData from useSelector")
     // Get the vocabData from the Redux store instead of local state
     const vocabData = useSelector(state => state.vocabulary.vocabData);
 
+    console.log(vocabData)
+    console.log("get vocabData from useSelector finished")
     return (
         <ul>
             {vocabData.map((vocab, index) => (

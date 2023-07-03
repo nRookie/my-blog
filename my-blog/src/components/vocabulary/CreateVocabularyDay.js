@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
-const CreateVocabularyList = () => {
+const CreateVocabularyDay = () => {
     const dispatch = useDispatch();
 
     const [vocabData, setVocabData] = useState({ day: "", vocab: [] });
@@ -17,7 +17,6 @@ const CreateVocabularyList = () => {
         // Dispatch the action to add the new vocabData
         const a = dispatch({ type: 'ADD_VOCAB_DATA', payload: vocabData });
         console.log("after dispatch")
-        console.log(a)
         // Clear the input fields
         setVocabData({ day: "", vocab: [] });
     }
@@ -41,4 +40,4 @@ const CreateVocabularyList = () => {
     );
 }
 
-export default CreateVocabularyList;
+export default CreateVocabularyDay;

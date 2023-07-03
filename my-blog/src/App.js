@@ -18,7 +18,7 @@ import './Navbar.css'
 import store from "./components/vocabulary/store";
 import {Provider} from "react-redux";
 import { ErrorBoundary } from 'react-error-boundary';
-import CreateVocabularyList from "./components/vocabulary/CreateVocabularyList";  // You may need to install this package
+import CreateVocabularyDay from "./components/vocabulary/CreateVocabularyDay";  // You may need to install this package
 
 
 
@@ -61,7 +61,7 @@ function App() {
                             <Route index element={<VocabularyList/>}/>
                             <Route path="day/:day" element={<VocabularyDay/>}/>
                         </Route>
-                       <Route path="/create-vocabulary-list" element={<CreateVocabularyList />}/>
+                       <Route path="/create-vocabulary-list" element={<CreateVocabularyDay />}/>
                 </Routes>
                 <Footer/>
             </div>

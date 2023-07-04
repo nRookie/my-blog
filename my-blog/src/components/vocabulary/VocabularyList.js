@@ -1,10 +1,31 @@
 // VocabularyList.js
+import Container from '@material-ui/core/Container';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { makeStyles } from '@material-ui/core/styles';
+import { Alert } from '@material-ui/lab';
 
 import React, { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
+const useStyles = makeStyles((theme) => ({
+    form: {
+      '& .MuiTextField-root': {
+        margin: theme.spacing(1),
+        width: '25ch',
+      },
+    },
+  }));
+
+  
 const VocabularyList = () => {
     const dispatch = useDispatch();
     useEffect(() => {

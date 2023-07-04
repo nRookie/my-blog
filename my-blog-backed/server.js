@@ -196,23 +196,6 @@ app.post('/vocabulary_day', async (req, res) => {
 
 
 
-  app.post('/vocabulary', async (req, res) => {
-    const vocab = new Vocabulary({
-      day: req.body.day,
-      vocabulary: req.body.vocabulary,
-      vocabularyExplaination: req.body.vocabularyExplaination,
-    });
-  
-    try {
-      const savedVocab = await vocab.save();
-      res.json(savedVocab);
-    } catch (err) {
-      console.error(err);
-      res.status(500).json({ message: 'Error saving vocabulary' });
-    }
-  });
-
-
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => console.log(`Server is running on port ${port}`));

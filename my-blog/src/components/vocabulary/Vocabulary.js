@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import axios from "axios";
 import serverAddress from "../../config";
 
@@ -42,10 +42,12 @@ const Vocabulary = () => {
                 {/* If you want to display the vocabData on the page */}
                 {vocabulary ? (
                     vocabulary.map((vocabItem, index) => (
-                        <Paper key={index} className={classes.paper}>
-                            <Typography variant="h6">Day: {vocabItem.day}</Typography>
-                            <Typography variant="body1">Description: {vocabItem.description}</Typography>
-                        </Paper>
+                        <Link to={`/vocabulary/day/${vocabItem.day}`} key={index}>
+                            <Paper className={classes.paper}>
+                                <Typography variant="h6">Day: {vocabItem.day}</Typography>
+                                <Typography variant="body1">Description: {vocabItem.description}</Typography>
+                            </Paper>
+                        </Link>
                     ))
                 ) : (
                     <Box display="flex" justifyContent="center">

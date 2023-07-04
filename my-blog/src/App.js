@@ -19,6 +19,7 @@ import store from "./components/vocabulary/store";
 import {Provider} from "react-redux";
 import { ErrorBoundary } from 'react-error-boundary';
 import CreateVocabularyDay from "./components/vocabulary/CreateVocabularyDay";  // You may need to install this package
+import CreateVocabularyInDay from './components/vocabulary/CreateVocabulariesInDay';
 
 
 
@@ -48,6 +49,7 @@ function App() {
                     <Link to="/create">Create Post</Link>
                     <Link to="/vocabulary">Vocabulary</Link>
                     <Link to="/create-vocabulary-list">Create Vocabulary Day</Link>
+                    <Link to="/create-vocabulary-in-day">Create Vocabulary In Day</Link>
                 </nav>
 
                 <Routes>
@@ -62,6 +64,7 @@ function App() {
                             <Route path="day/:day" element={<VocabularyDay/>}/>
                         </Route>
                        <Route path="/create-vocabulary-list" element={<CreateVocabularyDay />}/>
+                       <Route path="/create-vocabulary-in-day" element={<CreateVocabularyInDay />}/>
                 </Routes>
                 <Footer/>
             </div>

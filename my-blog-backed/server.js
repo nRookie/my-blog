@@ -132,6 +132,39 @@ app.get('/vocabulary', async (req, res) => {
 });
 
 
+app.get('/vocabulary/:day', async (req, res) => {
+    try {
+        const day = parseInt(req.params.day)
+
+        const vocabulary = await Vocabulary.find({day : day})
+
+        if (!vocabulary) {
+            return res.status(404).json({error: 'vocabulary not found'});
+        }
+        res.json(vocabulary);
+    } catch (err) {
+        res.status(500).json({error: 'Server error'});
+    }
+});
+
+app.post('/vocabulary', async (req, res) => {
+    const newVocabulary = new Vocabulary({
+        day: req.body.day,
+        vocabulary: req.body.vocabulary,
+        vocabularyExplaination: req.body.vocabularyExplaination,
+    });
+
+    try {
+
+        const savedVocabulary = await newVocabulary.save();
+        res.status(200).json(savedVocabulary);
+    } catch (err) {
+        res.status(500).json({message: err.message});
+    }
+});
+
+
+
 app.get('/vocabulary_day', async (req, res) => {
     const vocabList = await VocabularyDay.find();
     res.json(vocabList);
@@ -163,15 +196,21 @@ app.post('/vocabulary_day', async (req, res) => {
 
 
 
-app.post('/vocabulary', async (req, res) => {
+  app.post('/vocabulary', async (req, res) => {
     const vocab = new Vocabulary({
-        day: req.body.day,
-        vocabulary: req.body.vocabulary,
-        vocabularyExplaination: req.body.vocabularyExplaination,
+      day: req.body.day,
+      vocabulary: req.body.vocabulary,
+      vocabularyExplaination: req.body.vocabularyExplaination,
     });
-    const savedVocab = await vocab.save();
-    res.json(savedVocab);
-});
+  
+    try {
+      const savedVocab = await vocab.save();
+      res.json(savedVocab);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Error saving vocabulary' });
+    }
+  });
 
 
 const port = process.env.PORT || 3000;

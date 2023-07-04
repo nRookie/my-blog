@@ -43,6 +43,9 @@ const VocabularyDayList = () => {
                                 <Typography variant="h5">
                                     Day {vocabItem.day}
                                 </Typography>
+                                <Typography variant="h5">
+                                    {vocabItem.description}
+                                </Typography>
                             </Link>
                         </CardContent>
                     </Card>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
-import serverAddress from "../../config"; // Import server address
+import serverAddress from "../../config";
 
 // Material-UI imports
 import Container from '@material-ui/core/Container';
@@ -9,6 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +29,6 @@ const VocabularyDay = () => {
     const classes = useStyles();
 
     useEffect(() => {
-        // Fetch data when the component is mounted
         axios.get(`${serverAddress}/vocabulary/${day}`)
             .then(res => {
                 setVocabulary(res.data);
@@ -35,6 +37,17 @@ const VocabularyDay = () => {
                 console.error(err);
             });
     }, [day]);
+
+    const handleDelete = (vocabId) => {
+        axios.delete(`${serverAddress}/vocabulary/${vocabId}`)
+            .then(res => {
+                // Remove the vocabulary item from the state
+                setVocabulary(vocabulary.filter(vocab => vocab._id !== vocabId));
+            })
+            .catch(err => {
+                console.error(err);
+            });
+    }
 
     if (!vocabulary) {
         return (
@@ -52,6 +65,12 @@ const VocabularyDay = () => {
                     <Paper key={index} className={classes.paper}>
                         <Typography variant="h6">{vocabItem.vocabulary}</Typography>
                         <Typography variant="body1">{vocabItem.vocabularyExplaination}</Typography>
+                        <Link to={`/edit-vocabulary/${vocabItem._id}`}>
+                            <Button variant="contained" color="primary">Edit</Button>
+                        </Link>
+                        <IconButton aria-label="delete" onClick={() => handleDelete(vocabItem._id)}>
+                            <DeleteIcon />
+                        </IconButton>
                     </Paper>
                 ))}
             </Box>

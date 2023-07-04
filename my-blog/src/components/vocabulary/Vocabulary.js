@@ -54,8 +54,8 @@ const Vocabulary = () => {
                         <CircularProgress />
                     </Box>
                 )}
-                <Outlet />
             </Box>
+            <Outlet /> 
         </Container>
     );
 }

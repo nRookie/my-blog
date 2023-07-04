@@ -10,7 +10,7 @@ import DeletePost from './components/Post/DeletePost';
 import EditPost from './components/Post/EditPost';
 import HomePage from './components/HomePage';
 import Vocabulary from "./components/vocabulary/Vocabulary";
-import VocabularyList from "./components/vocabulary/VocabularyList";
+import VocabularyDayList from "./components/vocabulary/VocabularyDayList";
 import VocabularyDay from "./components/vocabulary/VocabularyDay";
 
 import './App.css';
@@ -60,7 +60,7 @@ function App() {
                         <Route path="/delete/:id" element={<DeletePost/>}/>
                         <Route path="/edit/:id" element={<EditPost/>}/>
                         <Route path="/vocabulary" element={<Vocabulary/>}>
-                            <Route index element={<VocabularyList/>}/>
+                            <Route index element={<VocabularyDayList/>}/>
                             <Route path="day/:day" element={<VocabularyDay/>}/>
                         </Route>
                        <Route path="/create-vocabulary-list" element={<CreateVocabularyDay />}/>

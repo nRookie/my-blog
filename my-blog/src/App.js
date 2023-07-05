@@ -66,7 +66,7 @@ function App() {
                         </Route>
                        <Route path="/create-vocabulary-list" element={<CreateVocabularyDay />}/>
                        <Route path="/create-vocabulary-in-day" element={<CreateVocabularyInDay />}/>
-                       <Route path="edit/:day" element={<EditVocabulary />} />
+                       <Route path="edit-vocabulary/:id" element={<EditVocabulary />} />
 
                 </Routes>
                 <Footer/>

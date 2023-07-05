@@ -124,6 +124,20 @@ app.put('/posts/:id', async (req, res) => {
     }
 });
 
+app.put('/vocabulary/:id', async(req, res) => {
+    try {
+        const vocabulary = await Vocabulary.findById(req.params.id);
+        if (!vocabulary) {
+            return res.status(404).json({error: 'vocabulary not found'});
+        }
+        vocabulary.vocabulary = req.body.vocabulary || vocabulary.vocabulary;
+        vocabulary.vocabularyExplaination = req.body.vocabularyExplaination || vocabulary.vocabularyExplaination;
+        const updatedVocabulary = await vocabulary.save();
+        res.json(updatedVocabulary);
+    } catch (err) {
+        res.status(500).json({error: 'Server error'})
+    }
+})
 
 /** maybe should need to get the day Id from the path*/
 app.get('/vocabulary', async (req, res) => {

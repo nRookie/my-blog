@@ -12,14 +12,14 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const EditVocabulary = () => {
-    const { day } = useParams();
+    const { id } = useParams();
     const [vocabulary, setVocabulary] = useState(null);
     const [vocabInput, setVocabInput] = useState('');
     const [vocabExplainationInput, setVocabExplainationInput] = useState('');
 
     useEffect(() => {
         // Fetch data when the component is mounted
-        axios.get(`${serverAddress}/vocabulary/${day}`)
+        axios.get(`${serverAddress}/vocabulary/${id}`)
             .then(res => {
                 setVocabulary(res.data);
                 setVocabInput(res.data.vocabulary);
@@ -28,16 +28,15 @@ const EditVocabulary = () => {
             .catch(err => {
                 console.error(err);
             });
-    }, [day]);
+    }, [id]);
 
     const handleFormSubmit = (event) => {
         event.preventDefault();
         const updatedVocabulary = {
-            day: vocabulary.day,
             vocabulary: vocabInput,
             vocabularyExplaination: vocabExplainationInput,
         };
-        axios.put(`${serverAddress}/vocabulary/${day}`, updatedVocabulary)
+        axios.put(`${serverAddress}/vocabulary/${id}`, updatedVocabulary)
             .then(res => {
                 alert('Vocabulary updated successfully');
             })
@@ -57,7 +56,7 @@ const EditVocabulary = () => {
     return (
         <Container>
             <Box my={4}>
-                <Typography variant="h4" align="center">Edit Vocabulary for Day {day}</Typography>
+                <Typography variant="h4" align="center">Edit Vocabulary</Typography>
                 <form onSubmit={handleFormSubmit}>
                     <TextField
                         label="Vocabulary"

@@ -29,7 +29,7 @@ const VocabularyDay = () => {
     const classes = useStyles();
 
     useEffect(() => {
-        axios.get(`${serverAddress}/vocabulary/${day}`)
+        axios.get(`${serverAddress}/vocabulary/day/${day}`)
             .then(res => {
                 setVocabulary(res.data);
             })
@@ -39,7 +39,7 @@ const VocabularyDay = () => {
     }, [day]);
 
     const handleDelete = (vocabId) => {
-        axios.delete(`${serverAddress}/vocabulary/${vocabId}`)
+        axios.delete(`${serverAddress}/vocabulary/delete/${vocabId}`)
             .then(res => {
                 // Remove the vocabulary item from the state
                 setVocabulary(vocabulary.filter(vocab => vocab._id !== vocabId));

@@ -22,12 +22,12 @@ const EditVocabulary = () => {
 
     console.log(id)
     useEffect(() => {
+        console.log(id)
         // Fetch data when the component is mounted
-        axios.get(`${serverAddress}/vocabulary/${id}`)
+        axios.get(`${serverAddress}/vocabulary/id/${id}`)
             .then(res => {
                 setVocabulary(res.data);
                 setVocabInput(res.data.vocabulary);
-                console.log(res.data)
                 setVocabExplainationInput(res.data.vocabularyExplaination);
             })
             .catch(err => {
@@ -41,7 +41,7 @@ const EditVocabulary = () => {
             vocabulary: vocabInput,
             vocabularyExplaination: vocabExplainationInput,
         };
-        axios.put(`${serverAddress}/vocabulary/${id}`, updatedVocabulary)
+        axios.put(`${serverAddress}/vocabulary/id/${id}`, updatedVocabulary)
             .then(res => {
                 alert('Vocabulary updated successfully');
             })

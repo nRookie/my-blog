@@ -124,7 +124,7 @@ app.put('/posts/:id', async (req, res) => {
     }
 });
 
-app.put('/vocabulary/:id', async(req, res) => {
+app.put('/vocabulary/id/:id', async(req, res) => {
     try {
         const vocabulary = await Vocabulary.findById(req.params.id);
         if (!vocabulary) {
@@ -140,7 +140,7 @@ app.put('/vocabulary/:id', async(req, res) => {
 })
 
 /** maybe should need to get the day Id from the path*/
-app.get('/vocabulary/:id', async (req, res) => {
+app.get('/vocabulary/id/:id', async (req, res) => {
     const {id} = req.params;
     try {
         const vocabulary = await Vocabulary.findById(id);
@@ -156,7 +156,7 @@ app.get('/vocabulary/:id', async (req, res) => {
 });
 
 
-app.get('/vocabulary/:day', async (req, res) => {
+app.get('/vocabulary/day/:day', async (req, res) => {
     try {
         const day = parseInt(req.params.day)
 

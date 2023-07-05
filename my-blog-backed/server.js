@@ -187,6 +187,17 @@ app.post('/vocabulary', async (req, res) => {
     }
 });
 
+app.delete('/vocabulary/id/:id', async (req, res) => {
+    const {id} = req.params;
+
+    try {
+        await Vocabulary.findByIdAndDelete(id);
+        res.status(200).json({message: 'Vocabulary deleted successfully'});
+    } catch (error) {
+        res.status(500).json({message: 'An error occurred while deleting the post', error});
+    }
+});
+
 
 
 app.get('/vocabulary_day', async (req, res) => {
@@ -217,6 +228,8 @@ app.post('/vocabulary_day', async (req, res) => {
       }
     }
   });
+
+
 
 
 

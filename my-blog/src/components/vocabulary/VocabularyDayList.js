@@ -37,14 +37,6 @@ const VocabularyDayList = () => {
 
     return (
         <div>
-            <Button 
-                variant="contained" 
-                color="primary" 
-                onClick={() => navigate('/create-vocabulary-list')} 
-                style={{ marginBottom: '20px' }}
-            >
-                Create Vocabulary Day
-            </Button>
             <List>
                 {vocabulary.map((vocabItem, index) => (
                     <ListItem key={index}>
@@ -63,6 +55,14 @@ const VocabularyDayList = () => {
                     </ListItem>
                 ))}
             </List>
+            <Button 
+                variant="contained" 
+                color="primary" 
+                onClick={() => navigate('/create-vocabulary-list')} 
+                style={{ marginBottom: '20px' }}
+            >
+                Create Vocabulary Day
+            </Button>
         </div>
     );
 }

@@ -46,9 +46,8 @@ function App() {
                 <Header/>
                 <nav className="navbar">
                     <Link to="/">Home</Link>
-                    <Link to="/post">Post List</Link>
-                    <Link to="/create">Create Post</Link>
-                    <Link to="/vocabulary">Vocabulary</Link>
+                    <Link to="/post">Posts</Link>
+                    <Link to="/vocabulary">Vocabularies</Link>
                 </nav>
 
                 <Routes>

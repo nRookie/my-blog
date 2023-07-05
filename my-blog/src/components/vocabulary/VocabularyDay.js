@@ -73,7 +73,7 @@ const VocabularyDay = () => {
                         </IconButton>
                     </Paper>
                 ))}
-                <Button variant="contained" color="primary" onClick={() => navigate('/create-vocabulary-in-day')}>Add Vocabulary</Button>
+                <Button variant="contained" color="primary" onClick={() => navigate('/create-vocabulary-in-day', { state: { day } })}>Add Vocabulary</Button>
             </Box>
         </Container>
     );

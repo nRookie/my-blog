@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import serverAddress from '../../config';
 
@@ -25,13 +25,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CreateVocabularyInDay = () => {
-const [day, setDay] = useState(1);
+  const location = useLocation();
+  const [day, setDay] = useState(location.state.day || 1);
   const [vocabulary, setVocabulary] = useState('');
   const [vocabularyExplaination, setVocabularyExplaination] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const classes = useStyles();
+
+  // Add this useEffect to set the day state when the component is re-rendered
+  useEffect(() => {
+    if (location.state.day) {
+      setDay(location.state.day);
+    }
+  }, [location]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

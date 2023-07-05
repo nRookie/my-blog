@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import serverAddress from "../../config"; 
 
@@ -11,19 +11,18 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+import Snackbar from '@material-ui/core/Snackbar';
+import Alert from '@material-ui/lab/Alert';
 
 const EditVocabulary = () => {
     const { id } = useParams();
     const [vocabulary, setVocabulary] = useState(null);
     const [vocabInput, setVocabInput] = useState('');
     const [vocabExplainationInput, setVocabExplainationInput] = useState('');
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const navigate = useNavigate();
 
-    console.log(id)
     useEffect(() => {
-        console.log(id)
-        // Fetch data when the component is mounted
         axios.get(`${serverAddress}/vocabulary/id/${id}`)
             .then(res => {
                 setVocabulary(res.data);
@@ -43,11 +42,18 @@ const EditVocabulary = () => {
         };
         axios.put(`${serverAddress}/vocabulary/id/${id}`, updatedVocabulary)
             .then(res => {
-                alert('Vocabulary updated successfully');
+                setOpenSnackbar(true);
+                setTimeout(() => {
+                    navigate(`/vocabulary/day/${res.data.day}`);
+                }, 2000);
             })
             .catch(err => {
                 console.error(err);
             });
+    };
+
+    const handleCloseSnackbar = () => {
+        setOpenSnackbar(false);
     };
 
     if (!vocabulary) {
@@ -63,18 +69,6 @@ const EditVocabulary = () => {
             <Box my={4}>
                 <Typography variant="h4" align="center">Edit Vocabulary</Typography>
                 <Grid container spacing={3}>
-                    <Grid item xs={12} md={6}>
-                        <Card variant="outlined">
-                            <CardContent>
-                                <Typography variant="h6" gutterBottom>
-                                    Original Word: {vocabulary.vocabulary}
-                                </Typography>
-                                <Typography variant="body1">
-                                    Meaning: {vocabulary.vocabularyExplaination}
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
                     <Grid item xs={12} md={6}>
                         <form onSubmit={handleFormSubmit}>
                             <TextField
@@ -98,6 +92,11 @@ const EditVocabulary = () => {
                         </form>
                     </Grid>
                 </Grid>
+                <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+                    <Alert onClose={handleCloseSnackbar} severity="success">
+                        Vocabulary updated successfully
+                    </Alert>
+                </Snackbar>
             </Box>
         </Container>
     );

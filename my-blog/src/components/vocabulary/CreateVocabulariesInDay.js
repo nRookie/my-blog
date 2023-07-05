@@ -52,7 +52,7 @@ const CreateVocabularyInDay = () => {
 
     try {
       await axios.post(`${serverAddress}/vocabulary`, newVocabulary);
-      navigate('/Vocabulary');
+      navigate(`/vocabulary/day/${day}`);
     } catch (error) {
       if (error.response && error.response.data) {
         setError(error.response.data.error);

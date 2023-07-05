@@ -10,6 +10,9 @@ import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 const EditVocabulary = () => {
     const { id } = useParams();
@@ -17,12 +20,14 @@ const EditVocabulary = () => {
     const [vocabInput, setVocabInput] = useState('');
     const [vocabExplainationInput, setVocabExplainationInput] = useState('');
 
+    console.log(id)
     useEffect(() => {
         // Fetch data when the component is mounted
         axios.get(`${serverAddress}/vocabulary/${id}`)
             .then(res => {
                 setVocabulary(res.data);
                 setVocabInput(res.data.vocabulary);
+                console.log(res.data)
                 setVocabExplainationInput(res.data.vocabularyExplaination);
             })
             .catch(err => {
@@ -57,23 +62,42 @@ const EditVocabulary = () => {
         <Container>
             <Box my={4}>
                 <Typography variant="h4" align="center">Edit Vocabulary</Typography>
-                <form onSubmit={handleFormSubmit}>
-                    <TextField
-                        label="Vocabulary"
-                        value={vocabInput}
-                        onChange={(e) => setVocabInput(e.target.value)}
-                        required
-                    />
-                    <TextField
-                        label="Vocabulary Explanation"
-                        value={vocabExplainationInput}
-                        onChange={(e) => setVocabExplainationInput(e.target.value)}
-                        required
-                    />
-                    <Button type="submit" variant="contained" color="primary">
-                        Save
-                    </Button>
-                </form>
+                <Grid container spacing={3}>
+                    <Grid item xs={12} md={6}>
+                        <Card variant="outlined">
+                            <CardContent>
+                                <Typography variant="h6" gutterBottom>
+                                    Original Word: {vocabulary.vocabulary}
+                                </Typography>
+                                <Typography variant="body1">
+                                    Meaning: {vocabulary.vocabularyExplaination}
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                    <Grid item xs={12} md={6}>
+                        <form onSubmit={handleFormSubmit}>
+                            <TextField
+                                label="Vocabulary"
+                                value={vocabInput}
+                                onChange={(e) => setVocabInput(e.target.value)}
+                                required
+                                fullWidth
+                            />
+                            <TextField
+                                label="Vocabulary Explanation"
+                                value={vocabExplainationInput}
+                                onChange={(e) => setVocabExplainationInput(e.target.value)}
+                                required
+                                fullWidth
+                                multiline
+                            />
+                            <Button type="submit" variant="contained" color="primary" style={{ marginTop: '10px' }}>
+                                Save
+                            </Button>
+                        </form>
+                    </Grid>
+                </Grid>
             </Box>
         </Container>
     );

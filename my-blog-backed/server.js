@@ -140,9 +140,19 @@ app.put('/vocabulary/:id', async(req, res) => {
 })
 
 /** maybe should need to get the day Id from the path*/
-app.get('/vocabulary', async (req, res) => {
-    const vocabList = await Vocabulary.find();
-    res.json(vocabList);
+app.get('/vocabulary/:id', async (req, res) => {
+    const {id} = req.params;
+    try {
+        const vocabulary = await Vocabulary.findById(id);
+
+        if (!vocabulary) {
+            return res.status(404).json({error: 'vocabulary not found'});
+        }
+        res.json(vocabulary);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({error: 'Server error'});
+    }
 });
 
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import serverAddress from "../../config";
 
@@ -27,6 +27,7 @@ const VocabularyDay = () => {
     const { day } = useParams();
     const [vocabulary, setVocabulary] = useState(null);
     const classes = useStyles();
+    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`${serverAddress}/vocabulary/day/${day}`)
@@ -41,7 +42,6 @@ const VocabularyDay = () => {
     const handleDelete = (vocabId) => {
         axios.delete(`${serverAddress}/vocabulary/id/${vocabId}`)
             .then(res => {
-                // Remove the vocabulary item from the state
                 setVocabulary(vocabulary.filter(vocab => vocab._id !== vocabId));
             })
             .catch(err => {
@@ -73,6 +73,7 @@ const VocabularyDay = () => {
                         </IconButton>
                     </Paper>
                 ))}
+                <Button variant="contained" color="primary" onClick={() => navigate('/create-vocabulary-in-day')}>Add Vocabulary</Button>
             </Box>
         </Container>
     );

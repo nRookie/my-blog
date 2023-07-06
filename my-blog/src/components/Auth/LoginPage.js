@@ -41,7 +41,7 @@ const LoginPage = () => {
     };
 
     try {
-      await axios.post(`${serverAddress}/users/login`, userData);
+      await axios.post(`${serverAddress}/api/login`, userData);
       navigate('/home');
     } catch (error) {
       if (error.response && error.response.data) {

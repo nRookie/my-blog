@@ -243,9 +243,10 @@ app.post('/api/login', async (req,res) => {
 
     try {
         let user = await User.findOne({ email });
-        if (!User)
+        if (!user)
             return res.status(400).json( {msg: "User not exists"});
 
+        console.log(user)
         user.comparePassword(password, (err, isMatch) => {
             if (!isMatch) return res.status(400).json({msg: "Invalid credentials"});
 

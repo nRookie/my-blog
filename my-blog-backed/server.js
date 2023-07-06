@@ -45,7 +45,11 @@ const app = express();
 // Enable CORS (Cross-Origin Resource Sharing)
 app.use(express.json());
 
+
 app.use(cors());
+
+// This middleware will check if token is provided, legal or not.
+//app.use(expressJwt({ secret: 'YOUR_SECRET_KEY', algorithms: ['HS256']}).unless({path: ['/api/login', '/api/register']}));
 
 
 // Connect to MongoDB (replace "your_database_url" with your actual MongoDB URL)
@@ -244,8 +248,28 @@ app.post('/api/login', async (req,res) => {
 
         user.comparePassword(password, (err, isMatch) => {
             if (!isMatch) return res.status(400).json({msg: "Invalid credentials"});
+
+            // User matched
+            const payload = {
+                user: {
+                    id : user.id
+                }
+            }; 
+
+            jwt.sign (
+                payload, 
+                'Your_SECRET_KEY',
+                { expiresIn: '1h'},
+                (err, token) => {
+                    if (err) throw err;
+                    res.json( {token} );
+                }
+            );
+
             res.status(200).json( {msg: "successfully logged in"})
         });
+
+
     } catch (err) {
         console.error(err)
         res.status(500).json( {error: 'Server error'})

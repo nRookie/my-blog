@@ -13,6 +13,7 @@ import Vocabulary from "./components/vocabulary/Vocabulary";
 import VocabularyDayList from "./components/vocabulary/VocabularyDayList";
 import VocabularyDay from "./components/vocabulary/VocabularyDay";
 import EditVocabulary from "./components/vocabulary/EditVocabulary"
+import LoginPage from './components/Auth/LoginPage';
 
 import './App.css';
 import './Navbar.css'
@@ -48,6 +49,7 @@ function App() {
                     <Link to="/">Home</Link>
                     <Link to="/post">Posts</Link>
                     <Link to="/vocabulary">Vocabularies</Link>
+                    <Link to="/login">Login</Link>
                 </nav>
 
                 <Routes>
@@ -64,6 +66,8 @@ function App() {
                        <Route path="/create-vocabulary-list" element={<CreateVocabularyDay />}/>
                        <Route path="/create-vocabulary-in-day" element={<CreateVocabularyInDay />}/>
                        <Route path="edit-vocabulary/:id" element={<EditVocabulary />} />
+                       <Route path="/login" element={<LoginPage />} />
+
 
                 </Routes>
                 <Footer/>

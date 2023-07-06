@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const User = require('./models/User'); 
 
 // Define the schema for a post
 const postSchema = new mongoose.Schema({
@@ -30,6 +31,8 @@ const vocabularyDaySchema = new mongoose.Schema({
     description: String,
     date: {type: Date, default: Date.now}
 })
+
+
 // Create a model from that schema
 const Post = mongoose.model('Post', postSchema);
 
@@ -231,6 +234,43 @@ app.post('/vocabulary_day', async (req, res) => {
 
 
 
+app.post('/api/login', async (req,res) => {
+    const {email, password} = req.body;
+
+    try {
+        let user = await User.findOne({ email });
+        if (!User)
+            return res.status(400).json( {msg: "User not exists"});
+
+        user.comparePassword(password, (err, isMatch) => {
+            if (!isMatch) return res.status(400).json({msg: "Invalid credentials"});
+            res.status(200).json( {msg: "successfully logged in"})
+        });
+    } catch (err) {
+        console.error(err)
+        res.status(500).json( {error: 'Server error'})
+    }
+});
+
+
+app.post('/api/register', async(req, res) => {
+    const {email, password} = req.body; 
+
+    try {
+        let user = await User.findOne({ email } );
+        if (user) {
+            return res.status(400).json({ msg: "User already exists"});
+        }
+        user = new User({ email, password});
+        await user.save();
+        res.status(200).json({msg: "User created successfully!"});
+    } catch(err) {
+        console.error(err);
+        res.status(500).json({ error:'server error' })
+    }
+
+ 
+})
 
 
 const port = process.env.PORT || 3000;

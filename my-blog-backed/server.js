@@ -257,15 +257,15 @@ app.post('/api/login', async (req,res) => {
                 }
             }; 
 
-            jwt.sign (
-                payload, 
-                'Your_SECRET_KEY',
-                { expiresIn: '1h'},
-                (err, token) => {
-                    if (err) throw err;
-                    res.json( {token} );
-                }
-            );
+            // jwt.sign (
+            //     payload, 
+            //     'Your_SECRET_KEY',
+            //     { expiresIn: '1h'},
+            //     (err, token) => {
+            //         if (err) throw err;
+            //         res.json( {token} );
+            //     }
+            // );
 
             res.status(200).json( {msg: "successfully logged in"})
         });

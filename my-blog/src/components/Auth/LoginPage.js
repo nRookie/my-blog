@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LoginPage = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ const LoginPage = () => {
     e.preventDefault();
 
     const userData = {
-      username,
+      email,
       password,
     };
 
@@ -60,9 +60,9 @@ const LoginPage = () => {
         <TextField 
           className={classes.textField}
           type="text" 
-          label="Username" 
-          value={username} 
-          onChange={(event) => setUsername(event.target.value)} 
+          label="email" 
+          value={email} 
+          onChange={(event) => setEmail(event.target.value)} 
           required 
         />
         <TextField 

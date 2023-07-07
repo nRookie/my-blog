@@ -41,7 +41,9 @@ const LoginPage = () => {
     };
 
     try {
-      await axios.post(`${serverAddress}/api/login`, userData);
+      const res =  await axios.post(`${serverAddress}/api/login`, userData);
+      // Store the token to local storage
+      localStorage.setItem('token', res.data.token);
       navigate('/home');
     } catch (error) {
       if (error.response && error.response.data) {

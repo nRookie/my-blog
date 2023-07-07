@@ -2,45 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const User = require('./models/User'); 
+const Post = require('./models/Post')
+const Vocabulary = require('./models/Vocabulary')
+const VocabularyDay = require('./models/VocabularyDay')
 const jwt = require('jsonwebtoken');
 const config = require('./config')
-
-// Define the schema for a post
-const postSchema = new mongoose.Schema({
-    title: String,
-    description: String,
-    content: String,
-    date: {type: Date, default: Date.now}
-});
-
-const vocabularySchema = new mongoose.Schema({
-    day: {
-        type: Number,
-        required: true,
-    },
-    vocabulary: String,
-    vocabularyExplaination: String,
-    date: { type: Date, default: Date.now }
-});
-
-const vocabularyDaySchema = new mongoose.Schema({
-    day: {
-        type: Number,
-        unique: true,
-        required: true,
-        index: true // Add this line
-    },
-    description: String,
-    date: {type: Date, default: Date.now}
-})
-
-
-// Create a model from that schema
-const Post = mongoose.model('Post', postSchema);
-
-const Vocabulary = mongoose.model('vocabulary', vocabularySchema);
-
-const VocabularyDay = mongoose.model('vocabularyDay', vocabularyDaySchema)
 
 const app = express();
 

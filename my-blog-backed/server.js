@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const User = require('./models/User'); 
+const jwt = require('jsonwebtoken');
+const config = require('./config')
 
 // Define the schema for a post
 const postSchema = new mongoose.Schema({
@@ -257,15 +259,15 @@ app.post('/api/login', async (req,res) => {
                 }
             }; 
 
-            // jwt.sign (
-            //     payload, 
-            //     'Your_SECRET_KEY',
-            //     { expiresIn: '1h'},
-            //     (err, token) => {
-            //         if (err) throw err;
-            //         res.json( {token} );
-            //     }
-            // );
+            if (isMatch && !err) {
+                var token = jwt.sign({ _id: user._id }, config.secret, {
+                    expiresIn: 604800 // 1 week
+                });
+                res.json({ success: true, token: 'JWT ' + token });
+            } else {
+                res.status(401).json({ message: 'Authentication failed. Wrong password.' });
+            }
+
 
             res.status(200).json( {msg: "successfully logged in"})
         });

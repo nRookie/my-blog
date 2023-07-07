@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState,useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import serverAddress from '../../config';
+import { AuthContext } from '../reactContext';
 
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -25,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LoginPage = () => {
+
+  const {setLoggedIn} = useContext(AuthContext);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -42,6 +46,7 @@ const LoginPage = () => {
 
     try {
       const res =  await axios.post(`${serverAddress}/api/login`, userData);
+      setLoggedIn(true);
       // Store the token to local storage
       localStorage.setItem('token', res.data.token);
       navigate('/home');

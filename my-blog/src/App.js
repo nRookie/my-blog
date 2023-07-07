@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -15,6 +16,7 @@ import VocabularyDay from "./components/vocabulary/VocabularyDay";
 import EditVocabulary from "./components/vocabulary/EditVocabulary"
 import LoginPage from './components/Auth/LoginPage';
 import RegistrationPage from './components/Auth/RegistrationPage';
+import { AuthContext } from './components/reactContext';
 
 import './App.css';
 import './Navbar.css'
@@ -40,9 +42,12 @@ function ErrorFallback({ error }) {
 
 
 function App() {
+    const [loggedIn, setLoggedIn] = useState(localStorage.getItem('userToken') ? true : false) 
+
     return (
         <ErrorBoundary FallbackComponent={ErrorFallback}>
         <Provider store={store}>
+            <AuthContext.Provider value={{ loggedIn, setLoggedIn}} >
         <Router>
             <div className="App">
                 <Header/>
@@ -70,12 +75,11 @@ function App() {
                        <Route path="edit-vocabulary/:id" element={<EditVocabulary />} />
                        <Route path="/login" element={<LoginPage />} />
                        <Route path="/register" element={<RegistrationPage />} />
-
-
                 </Routes>
                 <Footer/>
             </div>
         </Router>
+            </AuthContext.Provider>
         </Provider>
     </ErrorBoundary>
     );

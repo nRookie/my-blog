@@ -252,24 +252,14 @@ app.post('/api/login', async (req,res) => {
         user.comparePassword(password, (err, isMatch) => {
             if (!isMatch) return res.status(400).json({msg: "Invalid credentials"});
 
-            // User matched
-            const payload = {
-                user: {
-                    id : user.id
-                }
-            }; 
-
             if (isMatch && !err) {
                 var token = jwt.sign({ _id: user._id }, config.secret, {
                     expiresIn: 604800 // 1 week
                 });
-                res.json({ success: true, token: 'JWT ' + token });
+                return res.json({ success: true, token: 'JWT ' + token, msg: "successfully logged in"});
             } else {
                 res.status(401).json({ message: 'Authentication failed. Wrong password.' });
             }
-
-
-            res.status(200).json( {msg: "successfully logged in"})
         });
 
 

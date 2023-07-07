@@ -55,7 +55,6 @@ function App() {
                     <Link to="/">Home</Link>
                     <Link to="/post">Posts</Link>
                     <Link to="/vocabulary">Vocabularies</Link>
-                    <Link to="/register">Register</Link>
                 </nav>
 
                 <Routes>

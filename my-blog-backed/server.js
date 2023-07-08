@@ -19,9 +19,6 @@ app.use(cors());
 app.use('/posts', postRoutes);
 app.use('/vocabulary_day', vocabularyDayRoutes)
 app.use('/vocabulary', vocabularyRoutes)
-// This middleware will check if token is provided, legal or not.
-//app.use(expressJwt({ secret: 'YOUR_SECRET_KEY', algorithms: ['HS256']}).unless({path: ['/api/login', '/api/register']}));
-
 
 // Connect to MongoDB (replace "your_database_url" with your actual MongoDB URL)
 mongoose.connect('mongodb://localhost:27017/my-blog', {useNewUrlParser: true, useUnifiedTopology: true})
@@ -30,18 +27,31 @@ mongoose.connect('mongodb://localhost:27017/my-blog', {useNewUrlParser: true, us
 
 
 
-// const adminMiddleware = async (req, res, next) => {
-//     try {
-//         const user = await User.findById(req.user._id);
-//         if (user.role !== "admin") {
-//             return res.status(403).json({ error: "Access denied"})
-//         }
-//         next();
-//     } catch (error) {
-//         console.error(error)
-//         res.status(500).json()
-//     }
-// }
+// Middleware to authenticate and authorize user
+function authenticateRole(role) {
+    return function(req, res, next) {
+      // Get token from Authorization header
+      const token = req.header('Authorization').replace('Bearer ', '');
+  
+      // Verify token
+      jwt.verify(token, config.secret, (err, decoded) => {
+        if (err) {
+          // If token is invalid, return 401 error
+          return res.status(401).json({ message: 'Invalid token' });
+        } else {
+          // If token is valid, check role
+          if (decoded.role !== role) {
+            // If user does not have correct role, return 403 error
+            return res.status(403).json({ message: 'Forbidden: incorrect role' });
+          } else {
+            // If user has correct role, proceed
+            next();
+          }
+        }
+      });
+    }
+}
+  
 
 
 app.post('/api/login', async (req,res) => {

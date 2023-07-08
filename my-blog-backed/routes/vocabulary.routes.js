@@ -1,6 +1,7 @@
 const express = require('express');
 const vocabularyService = require('../services/vocabulary.service');
 const router = express.Router();
+const { authenticateRole } = require('../middleware/authMiddleware');  // Import the middleware
 
 router.get('/id/:id', async (req, res) => {
     const { id } = req.params;
@@ -29,7 +30,7 @@ router.get('/day/:day', async (req, res) => {
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', authenticateRole('admin'), async (req, res) => {
 
     try {
         const savedVocabulary = vocabularyService.createVocabulary({

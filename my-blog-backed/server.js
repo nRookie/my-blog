@@ -78,6 +78,12 @@ app.post('/api/register', async(req, res) => {
     const {email, password, role} = req.body; 
 
     try {
+
+        const validRoles = ['user'];
+        if (!validRoles.includes(role)) {
+            return res.status(400).json({ msg: "Invalid role"});
+        }
+    
         let user = await User.findOne({ email } );
         if (user) {
             return res.status(400).json({ msg: "User already exists"});

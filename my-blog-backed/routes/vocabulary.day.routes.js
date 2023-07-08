@@ -1,7 +1,7 @@
 const express = require('express');
 const vocabularyDayService = require('../services/vocabulary.day.service');
 const router = express.Router();
-
+const { authenticateRole } = require('../middleware/authMiddleware');  // Import the middleware
 
 router.get('/', async (req, res) => {
     const vocabList = await vocabularyDayService.getVocabularyDays()

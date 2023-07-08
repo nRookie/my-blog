@@ -16,7 +16,7 @@ const Header = () => {
   const {loggedIn, setLoggedIn} = useContext(AuthContext)
 
   const logout = () => {
-    localStorage.removeItem('userToken')
+    localStorage.removeItem('token')
     setLoggedIn(false);
   };
 

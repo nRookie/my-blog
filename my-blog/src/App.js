@@ -42,7 +42,7 @@ function ErrorFallback({ error }) {
 
 
 function App() {
-    const [loggedIn, setLoggedIn] = useState(localStorage.getItem('userToken') ? true : false) 
+    const [loggedIn, setLoggedIn] = useState(localStorage.getItem('token') ? true : false) 
 
     return (
         <ErrorBoundary FallbackComponent={ErrorFallback}>

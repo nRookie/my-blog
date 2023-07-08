@@ -46,7 +46,6 @@ router.post('/', authenticateRole('admin'), async (req, res) => {
 
 router.delete('/id/:id', authenticateRole('admin'), async (req, res) => {
     try {
-        console.log("in id")
         const { id } = req.params;
         await vocabularyService.deleteVocabulary(id)
         res.status(200).json({ message: 'Vocabulary deleted successfully' });

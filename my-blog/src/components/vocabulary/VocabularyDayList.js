@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import axios from 'axios';
 import serverAddress from "../../config";
-
+import jwt_decode from "jwt-decode"
 // Material-UI imports
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -18,6 +18,29 @@ const VocabularyDayList = () => {
     const [vocabulary, setVocabulary] = useState(null);
     const navigate = useNavigate(); // initialize useNavigate
     
+
+    const handleDelete = (day) => {
+        axios.delete(`${serverAddress}/vocabulary_day/${day}`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        .then(res => {
+            setVocabulary(vocabulary.filter(vocabDay => vocabDay.day !== day));
+        })
+        .catch(err => {
+            console.error(err)
+        });
+    }
+
+    const token = localStorage.getItem('token');
+    let isAdmin = false;
+    if (token) {
+        const decoded = jwt_decode(token);
+        isAdmin = decoded.role === 'admin';
+    }
+
+
     useEffect(() => {
         // Fetch data when the component is mounted
         axios.get(`${serverAddress}/vocabulary_day/`)
@@ -35,6 +58,7 @@ const VocabularyDayList = () => {
         );
     }
 
+
     return (
         <div>
             <List>
@@ -50,6 +74,7 @@ const VocabularyDayList = () => {
                                         {vocabItem.description}
                                     </Typography>
                                 </Link>
+                                {isAdmin && <Button onClick={() => handleDelete(vocabItem.day)}>Delete</Button>}
                             </CardContent>
                         </Card>
                     </ListItem>

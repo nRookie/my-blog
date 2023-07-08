@@ -44,7 +44,7 @@ router.post('/', authenticateRole('admin'), async (req, res) => {
     }
 });
 
-router.delete('/id/:id', async (req, res) => {
+router.delete('/id/:id', authenticateRole('admin'), async (req, res) => {
     try {
         console.log("in id")
         const { id } = req.params;
@@ -56,17 +56,17 @@ router.delete('/id/:id', async (req, res) => {
 });
 
 
-router.put('/id/:id', async (req, res) => {
+router.put('/id/:id', authenticateRole('admin'), async (req, res) => {
     try {
         const updatedVocabulary = await vocabularyService.updateVocabulary(req.params.id, {
             vocabulary: req.body.vocabulary,
             vocabularyExplaination: req.body.vocabularyExplaination,
-            description :req.body.description,
+            description: req.body.description,
         })
         res.json(updatedVocabulary);
     } catch (err) {
         if (err.message == 'Vocabulary not found') {
-            res.status(404).json({error: 'Vocabulary not found'});
+            res.status(404).json({ error: 'Vocabulary not found' });
         }
         res.status(500).json({ error: 'Server error' })
     }

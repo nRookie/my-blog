@@ -40,7 +40,11 @@ const VocabularyDay = () => {
     }, [day]);
 
     const handleDelete = (vocabId) => {
-        axios.delete(`${serverAddress}/vocabulary/id/${vocabId}`)
+        axios.delete(`${serverAddress}/vocabulary/id/${vocabId}`,  {
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+          })
             .then(res => {
                 setVocabulary(vocabulary.filter(vocab => vocab._id !== vocabId));
             })

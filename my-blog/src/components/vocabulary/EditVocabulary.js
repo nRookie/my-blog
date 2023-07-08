@@ -40,7 +40,11 @@ const EditVocabulary = () => {
             vocabulary: vocabInput,
             vocabularyExplaination: vocabExplainationInput,
         };
-        axios.put(`${serverAddress}/vocabulary/id/${id}`, updatedVocabulary)
+        axios.put(`${serverAddress}/vocabulary/id/${id}`, updatedVocabulary, {
+            headers: {
+              'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+          })
             .then(res => {
                 setOpenSnackbar(true);
                 setTimeout(() => {

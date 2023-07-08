@@ -35,6 +35,7 @@ router.post('/', authenticateRole('admin'), async (req, res) => {
         const savedVocabulary = await vocabularyService.createVocabulary({
             day: req.body.day,
             vocabulary: req.body.vocabulary,
+            hiragana : req.body.hiragana,
             vocabularyExplaination: req.body.vocabularyExplaination
         })
         res.status(200).json(savedVocabulary);

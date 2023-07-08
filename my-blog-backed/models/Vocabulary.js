@@ -6,6 +6,7 @@ const vocabularySchema = new mongoose.Schema({
         required: true,
     },
     vocabulary: String,
+    hiragana: String,
     vocabularyExplaination: String,
     date: { type: Date, default: Date.now }
 });

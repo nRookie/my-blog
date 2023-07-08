@@ -29,6 +29,7 @@ const CreateVocabularyInDay = () => {
   const [day, setDay] = useState(location.state.day || 1);
   const [vocabulary, setVocabulary] = useState('');
   const [vocabularyExplaination, setVocabularyExplaination] = useState('');
+  const [hiragana, setHiragana] = useState('')
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
@@ -47,6 +48,7 @@ const CreateVocabularyInDay = () => {
     const newVocabulary = {
       day,
       vocabulary,
+      hiragana,
       vocabularyExplaination,
     };
 
@@ -85,6 +87,14 @@ const CreateVocabularyInDay = () => {
           label="Word"
           value={vocabulary}
           onChange={(event) => setVocabulary(event.target.value)}
+          required
+        />
+        <TextField
+          className={classes.textField}
+          type="text"
+          label="Hiragana"
+          value={hiragana}
+          onChange={(event) => setHiragana(event.target.value)}
           required
         />
         <TextField

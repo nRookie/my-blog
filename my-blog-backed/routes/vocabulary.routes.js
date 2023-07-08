@@ -51,7 +51,7 @@ router.delete('/id/:id', authenticateRole('admin'), async (req, res) => {
         await vocabularyService.deleteVocabulary(id)
         res.status(200).json({ message: 'Vocabulary deleted successfully' });
     } catch (error) {
-        res.status(500).json({ message: 'An error occurred while deleting the post', error });
+        res.status(500).json({ message: 'An error occurred while deleting the vocabulary', error });
     }
 });
 

@@ -10,3 +10,9 @@ exports.createVocabularyDay = async(vocabularyDayData) => {
     const newVocabularyDay = new VocabularyDay(vocabularyDayData);
     return await newVocabularyDay.save();
 }
+
+exports.deleteVocabularyDay = async(day) => {
+   return await VocabularyDay.findOneAndDelete({
+    day : day
+   })
+}

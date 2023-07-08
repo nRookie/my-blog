@@ -11,7 +11,6 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-      console.log("in create vocabulary day")
       const savedVocabDay = vocabularyDayService.createVocabularyDay({
         day: req.body.day,
         description: req.body.description
@@ -26,6 +25,17 @@ router.post('/', async (req, res) => {
         res.status(500).json({ error: 'An error occurred while saving the vocabulary.' });
       }
     }
+});
+
+router.delete('/day', async (req,res) =>  {
+  try {
+    const {day} = req.params;
+
+    await vocabularyDayService.deleteVocabularyDay(day)
+    res.status(200).json({ message: 'Vocabulary day deleted successfully' });
+  } catch {
+    res.status(500).json({ message: 'An error occurred while deleting the vocabulary day', error });
+  }
 });
 
 module.exports = router;

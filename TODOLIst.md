@@ -13,4 +13,9 @@
 
 1. there is a lagging when updating vocabulary
 2. delete some vocabulary day
-3. 
+3. change to https
+
+
+## maybe
+
+maybe delete all the vocabulary in a day  when the day is deleted.

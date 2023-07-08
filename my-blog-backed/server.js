@@ -2,12 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const User = require('./models/User'); 
-const Vocabulary = require('./models/Vocabulary')
-const VocabularyDay = require('./models/VocabularyDay')
 const jwt = require('jsonwebtoken');
 const config = require('./config')
 const postRoutes = require('./routes/post.routes');
-
+const vocabularyRoutes = require('./routes/vocabulary.routes')
+const vocabularyDayRoutes = require('./routes/vocabulary.day.routes');
 
 const app = express();
 
@@ -18,7 +17,8 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/posts', postRoutes);
-
+app.use('/vocabulary_day', vocabularyDayRoutes)
+app.use('/vocabulary', vocabularyRoutes)
 // This middleware will check if token is provided, legal or not.
 //app.use(expressJwt({ secret: 'YOUR_SECRET_KEY', algorithms: ['HS256']}).unless({path: ['/api/login', '/api/register']}));
 
@@ -27,112 +27,6 @@ app.use('/posts', postRoutes);
 mongoose.connect('mongodb://localhost:27017/my-blog', {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => console.log("MongoDB connected"))
     .catch(err => console.log(err));
-
-
-app.put('/vocabulary/id/:id', async(req, res) => {
-    try {
-        const vocabulary = await Vocabulary.findById(req.params.id);
-        if (!vocabulary) {
-            return res.status(404).json({error: 'vocabulary not found'});
-        }
-        vocabulary.vocabulary = req.body.vocabulary || vocabulary.vocabulary;
-        vocabulary.vocabularyExplaination = req.body.vocabularyExplaination || vocabulary.vocabularyExplaination;
-        const updatedVocabulary = await vocabulary.save();
-        res.json(updatedVocabulary);
-    } catch (err) {
-        res.status(500).json({error: 'Server error'})
-    }
-})
-
-/** maybe should need to get the day Id from the path*/
-app.get('/vocabulary/id/:id', async (req, res) => {
-    const {id} = req.params;
-    try {
-        const vocabulary = await Vocabulary.findById(id);
-
-        if (!vocabulary) {
-            return res.status(404).json({error: 'vocabulary not found'});
-        }
-        res.json(vocabulary);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({error: 'Server error'});
-    }
-});
-
-
-app.get('/vocabulary/day/:day', async (req, res) => {
-    try {
-        const day = parseInt(req.params.day)
-
-        const vocabulary = await Vocabulary.find({day : day})
-
-        if (!vocabulary) {
-            return res.status(404).json({error: 'vocabulary not found'});
-        }
-        res.json(vocabulary);
-    } catch (err) {
-        res.status(500).json({error: 'Server error'});
-    }
-});
-
-app.post('/vocabulary', async (req, res) => {
-    const newVocabulary = new Vocabulary({
-        day: req.body.day,
-        vocabulary: req.body.vocabulary,
-        vocabularyExplaination: req.body.vocabularyExplaination,
-    });
-
-    try {
-
-        const savedVocabulary = await newVocabulary.save();
-        res.status(200).json(savedVocabulary);
-    } catch (err) {
-        res.status(500).json({message: err.message});
-    }
-});
-
-app.delete('/vocabulary/id/:id', async (req, res) => {
-    const {id} = req.params;
-
-    try {
-        await Vocabulary.findByIdAndDelete(id);
-        res.status(200).json({message: 'Vocabulary deleted successfully'});
-    } catch (error) {
-        res.status(500).json({message: 'An error occurred while deleting the post', error});
-    }
-});
-
-
-
-app.get('/vocabulary_day', async (req, res) => {
-    const vocabList = await VocabularyDay.find();
-    res.json(vocabList);
-});
-
-
-app.post('/vocabulary_day', async (req, res) => {
-    console.log("received_vocabulary_day")
-    try {
-      const vocab = new VocabularyDay({
-        day: req.body.day,
-        description: req.body.description
-      });
-      console.log("after ")
-      const savedVocab = await vocab.save();
-      res.json(savedVocab);
-    } catch (error) {
-      if (error.code === 11000 && error.keyPattern && error.keyPattern.day) {
-        // If the error is due to a duplicate key (day), handle it appropriately
-        console.log(111)
-        res.status(400).json({ error: 'Duplicate day value. Please choose a different day.' });
-      } else {
-        // Handle other errors
-        console.log(200)
-        res.status(500).json({ error: 'An error occurred while saving the vocabulary.' });
-      }
-    }
-  });
 
 
 

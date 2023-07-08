@@ -17,3 +17,19 @@ exports.updateVocabulary = async (id, updateData) => {
 };
 
 // More methods for other vocabulary operations...
+
+exports.getVocabulariesByDay = async (day) => {
+    const vocabularies = await Vocabulary.find({day : day})
+    return vocabularies
+}
+
+
+exports.createVocabulary = async(vocabularyData) => {
+    const newVocabulary = new Vocabulary(vocabularyData);
+    const savedVocabulary = await newVocabulary.save();
+    return savedVocabulary
+}
+
+exports.deleteVocabulary = async(id) => {
+    return await Vocabulary.findByIdAndDelete(id);
+}

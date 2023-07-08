@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try {
-        const savedPost = await  postService.createPost({
+        const savedPost = await postService.createPost({
             title: req.body.title,
             description: req.body.description,
             content: req.body.content,

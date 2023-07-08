@@ -3,13 +3,14 @@
 
 ## 
 
-1. refactor code 
-2. add role 
-3. show different page based on the user role.
-4. add invitation method to invite admins
-
+1. show different page based on the user role.
+2. add invitation method to invite admins
+3. add multiple meaning.
+4. add sample sentence.
+5. add different language translation
 
 ## bug
 
-there is a lagging when updating vocabulary
-delete some vocabulary day
+1. there is a lagging when updating vocabulary
+2. delete some vocabulary day
+3. 

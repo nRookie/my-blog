@@ -68,6 +68,7 @@ const VocabularyDay = () => {
                 {vocabulary.map((vocabItem, index) => (
                     <Paper key={index} className={classes.paper}>
                         <Typography variant="h6">{vocabItem.vocabulary}</Typography>
+                        <Typography variant="h7">{vocabItem.hiragana}</Typography>
                         <Typography variant="body1">{vocabItem.vocabularyExplaination}</Typography>
                         <Link to={`/edit-vocabulary/${vocabItem._id}`}>
                             <Button variant="contained" color="primary">Edit</Button>

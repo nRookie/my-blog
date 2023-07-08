@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import serverAddress from "../../config";
+import jwt_decode from 'jwt-decode'
 
 // Material-UI imports
 import Container from '@material-ui/core/Container';
@@ -28,8 +29,18 @@ const VocabularyDay = () => {
     const [vocabulary, setVocabulary] = useState(null);
     const classes = useStyles();
     const navigate = useNavigate();
+    const [isAdmin, setIsAdmin] = useState(false); // add this line to define a state for admin status
+
 
     useEffect(() => {
+        // Decode token and set admin status
+
+        const token = localStorage.getItem('token');
+
+        if (token) {
+            const decodedToken = jwt_decode(token);
+            setIsAdmin(decodedToken.role === 'admin');
+        }
         axios.get(`${serverAddress}/vocabulary/day/${day}`)
             .then(res => {
                 setVocabulary(res.data);
@@ -70,12 +81,16 @@ const VocabularyDay = () => {
                         <Typography variant="h6">{vocabItem.vocabulary}</Typography>
                         <Typography variant="h7">{vocabItem.hiragana}</Typography>
                         <Typography variant="body1">{vocabItem.vocabularyExplaination}</Typography>
+                        {isAdmin && ( // Show "Edit" and "Delete" only if isAdmin is true)
+                        <>
                         <Link to={`/edit-vocabulary/${vocabItem._id}`}>
                             <Button variant="contained" color="primary">Edit</Button>
                         </Link>
                         <IconButton aria-label="delete" onClick={() => handleDelete(vocabItem._id)}>
                             <DeleteIcon />
                         </IconButton>
+                        </>
+                        )}
                     </Paper>
                 ))}
                 <Button variant="contained" color="primary" onClick={() => navigate('/create-vocabulary-in-day', { state: { day } })}>Add Vocabulary</Button>

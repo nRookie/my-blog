@@ -2,11 +2,12 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const User = require('./models/User'); 
-const Post = require('./models/Post')
 const Vocabulary = require('./models/Vocabulary')
 const VocabularyDay = require('./models/VocabularyDay')
 const jwt = require('jsonwebtoken');
 const config = require('./config')
+const postRoutes = require('./routes/post.routes');
+
 
 const app = express();
 
@@ -15,6 +16,8 @@ app.use(express.json());
 
 
 app.use(cors());
+
+app.use('/posts', postRoutes);
 
 // This middleware will check if token is provided, legal or not.
 //app.use(expressJwt({ secret: 'YOUR_SECRET_KEY', algorithms: ['HS256']}).unless({path: ['/api/login', '/api/register']}));
@@ -25,79 +28,6 @@ mongoose.connect('mongodb://localhost:27017/my-blog', {useNewUrlParser: true, us
     .then(() => console.log("MongoDB connected"))
     .catch(err => console.log(err));
 
-// Define your API endpoint
-app.get('/posts', async (req, res) => {
-    try {
-        const posts = await Post.find();
-        res.status(200).json(posts);
-    } catch (err) {
-        res.status(500).json({message: err.message});
-    }
-});
-
-
-app.post('/posts', async (req, res) => {
-    const newPost = new Post({
-        title: req.body.title,
-        description: req.body.description,
-        content: req.body.content,
-    });
-
-    try {
-
-        const savedPost = await newPost.save();
-        res.status(200).json(savedPost);
-    } catch (err) {
-        res.status(500).json({message: err.message});
-    }
-});
-
-app.delete('/posts/:id', async (req, res) => {
-    const {id} = req.params;
-
-    try {
-        await Post.findByIdAndDelete(id);
-        res.status(200).json({message: 'Post deleted successfully'});
-    } catch (error) {
-        res.status(500).json({message: 'An error occurred while deleting the post', error});
-    }
-});
-
-
-app.get('/posts/:id', async (req, res) => {
-    const {id} = req.params;
-
-    try {
-        const post = await Post.findById(id);
-
-        if (!post) {
-            return res.status(404).json({message: 'Post not found'});
-        }
-
-        res.json(post);
-    } catch (err) {
-        console.error(err);
-        res.status(500).json({message: 'Server error'});
-    }
-});
-
-
-app.put('/posts/:id', async (req, res) => {
-    try {
-        const post = await Post.findById(req.params.id);
-        if (!post) {
-            return res.status(404).json({error: 'Post not found'});
-        }
-        post.title = req.body.title || post.title;
-        post.content = req.body.content || post.content;
-        post.description = req.body.description || post.description;
-        const updatedPost = await post.save();
-
-        res.json(updatedPost);
-    } catch (err) {
-        res.status(500).json({error: 'Server error'});
-    }
-});
 
 app.put('/vocabulary/id/:id', async(req, res) => {
     try {

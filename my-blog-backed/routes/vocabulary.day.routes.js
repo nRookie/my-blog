@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.delete('/day', async (req,res) =>  {
+router.delete('/:day', async (req,res) =>  {
   try {
     const {day} = req.params;
 

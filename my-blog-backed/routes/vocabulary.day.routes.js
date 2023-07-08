@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
 });
 
 
-router.post('/', async (req, res) => {
+router.post('/', authenticateRole('admin'), async (req, res) => {
     try {
       const savedVocabDay = vocabularyDayService.createVocabularyDay({
         day: req.body.day,
@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-router.delete('/:day', async (req,res) =>  {
+router.delete('/:day', authenticateRole('admin'), async (req,res) =>  {
   try {
     const {day} = req.params;
 

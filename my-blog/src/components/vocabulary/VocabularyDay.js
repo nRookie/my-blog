@@ -14,6 +14,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core/styles';
+import { Switch } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -31,6 +32,11 @@ const VocabularyDay = () => {
     const navigate = useNavigate();
     const [isAdmin, setIsAdmin] = useState(false); // add this line to define a state for admin status
 
+    const [showMeaning, setShowMeaning] = useState(true);
+
+    const handleToggleChange = () => {
+        setShowMeaning(!showMeaning);
+    }
 
     useEffect(() => {
         // Decode token and set admin status
@@ -51,11 +57,11 @@ const VocabularyDay = () => {
     }, [day]);
 
     const handleDelete = (vocabId) => {
-        axios.delete(`${serverAddress}/vocabulary/id/${vocabId}`,  {
+        axios.delete(`${serverAddress}/vocabulary/id/${vocabId}`, {
             headers: {
-              'Authorization': `Bearer ${localStorage.getItem('token')}`
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
-          })
+        })
             .then(res => {
                 setVocabulary(vocabulary.filter(vocab => vocab._id !== vocabId));
             })
@@ -76,20 +82,28 @@ const VocabularyDay = () => {
         <Container>
             <Box my={4}>
                 <Typography variant="h4" align="center">Day {day}</Typography>
+                <Typography variant="h5" align="center">
+                    Show Meanings
+                    <Switch
+                        checked={showMeaning}
+                        onChange={handleToggleChange}
+                        color="primary"
+                    />
+                </Typography>
                 {vocabulary.map((vocabItem, index) => (
                     <Paper key={index} className={classes.paper}>
                         <Typography variant="h6">{vocabItem.vocabulary}</Typography>
                         <Typography variant="h7">{vocabItem.hiragana}</Typography>
-                        <Typography variant="body1">{vocabItem.vocabularyExplaination}</Typography>
+                        {showMeaning && <Typography variant="body1">{vocabItem.vocabularyExplaination}</Typography>}
                         {isAdmin && ( // Show "Edit" and "Delete" only if isAdmin is true)
-                        <>
-                        <Link to={`/edit-vocabulary/${vocabItem._id}`}>
-                            <Button variant="contained" color="primary">Edit</Button>
-                        </Link>
-                        <IconButton aria-label="delete" onClick={() => handleDelete(vocabItem._id)}>
-                            <DeleteIcon />
-                        </IconButton>
-                        </>
+                            <>
+                                <Link to={`/edit-vocabulary/${vocabItem._id}`}>
+                                    <Button variant="contained" color="primary">Edit</Button>
+                                </Link>
+                                <IconButton aria-label="delete" onClick={() => handleDelete(vocabItem._id)}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </>
                         )}
                     </Paper>
                 ))}

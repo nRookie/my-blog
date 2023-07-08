@@ -27,7 +27,8 @@ const RegistrationPage = () => {
         name: '',
         email: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        role: 'user'
     });
 
     const [errorState, setErrorState] = useState(false);
@@ -55,7 +56,8 @@ const RegistrationPage = () => {
         try {
             const res = await axios.post(`${serverAddress}/api/register`, {
                 email: user.email,
-                password: user.password
+                password: user.password,
+                role: user.role
             });
             console.log(res.data);
             setErrorState(false);

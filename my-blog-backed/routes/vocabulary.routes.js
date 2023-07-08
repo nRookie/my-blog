@@ -32,7 +32,6 @@ router.get('/day/:day', async (req, res) => {
 
 router.post('/', authenticateRole('admin'), async (req, res) => {
     try {
-        console.log("in post vocabulary", req.body)
         const savedVocabulary = await vocabularyService.createVocabulary({
             day: req.body.day,
             vocabulary: req.body.vocabulary,

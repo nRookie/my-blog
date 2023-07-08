@@ -25,7 +25,6 @@ exports.getVocabulariesByDay = async (day) => {
 
 
 exports.createVocabulary = async(vocabularyData) => {
-    console.log("createVocabulary", vocabularyData)
     const newVocabulary = new Vocabulary(vocabularyData);
     const savedVocabulary = await newVocabulary.save();
     return savedVocabulary

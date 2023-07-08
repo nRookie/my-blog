@@ -8,8 +8,6 @@ function authenticateRole(role) {
   return function(req, res, next) {
     // Get token from Authorization header
     const bearerHeader = req.headers['authorization']; // Fetching the authorization header
-
-    console.log(req.body)
     if (typeof bearerHeader !== 'undefined') {
       const bearer = bearerHeader.split(' '); // Splitting at the space
       const token = bearer[1]; // Getting the actual token
@@ -24,7 +22,6 @@ function authenticateRole(role) {
           // If token is valid, check role
           if (decoded.role !== role) {
             // If user does not have correct role, return 403 error
-            console.log(role, decoded.role)
             return res.status(403).json({ message: 'Forbidden: incorrect role' });
           } else {
             // If user has correct role, proceed

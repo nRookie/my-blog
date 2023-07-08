@@ -11,5 +11,5 @@
 
 ## bug
 
-there is lagging when updating vocabulary
+there is a lagging when updating vocabulary
 delete some vocabulary day

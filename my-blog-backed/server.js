@@ -30,6 +30,20 @@ mongoose.connect('mongodb://localhost:27017/my-blog', {useNewUrlParser: true, us
 
 
 
+// const adminMiddleware = async (req, res, next) => {
+//     try {
+//         const user = await User.findById(req.user._id);
+//         if (user.role !== "admin") {
+//             return res.status(403).json({ error: "Access denied"})
+//         }
+//         next();
+//     } catch (error) {
+//         console.error(error)
+//         res.status(500).json()
+//     }
+// }
+
+
 app.post('/api/login', async (req,res) => {
     const {email, password} = req.body;
 
@@ -68,7 +82,7 @@ app.post('/api/register', async(req, res) => {
         if (user) {
             return res.status(400).json({ msg: "User already exists"});
         }
-        user = new User({ email, password});
+        user = new User({ email, password, role});
         await user.save();
         res.status(200).json({msg: "User created successfully!"});
     } catch(err) {

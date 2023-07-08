@@ -18,7 +18,6 @@ exports.getPostById = async (id) => {
 };
 
 exports.updatePost = async (id, updateData) => {
-  console.log("in updatePost service")
   const post = await Post.findById(id);
   if (!post) {
     throw new Error('Post not found');

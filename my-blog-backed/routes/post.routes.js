@@ -9,6 +9,7 @@ router.get('/', async (req, res) => {
         const posts = await postService.getPosts()
         res.status(200).json(posts);
     } catch (err) {
+        console.error(err)
         res.status(500).json({message: err.message});
     }
 });
@@ -23,6 +24,7 @@ router.post('/', async (req, res) => {
         })
         res.status(200).json(savedPost);
     } catch (err) {
+        console.error(err)
         res.status(500).json({message: err.message});
     }
 });
@@ -32,7 +34,8 @@ router.delete('/:id', async (req, res) => {
         const {id} = req.params;
         await postService.deletePost(id)
         res.status(200).json({message: 'Post deleted successfully'});
-    } catch (error) {
+    } catch (err) {
+        console.error(err)
         res.status(500).json({message: 'An error occurred while deleting the post', error});
     }
 });
@@ -55,7 +58,6 @@ router.get('/:id', async (req, res) => {
 
 router.put('/:id', async (req, res) => {
     try {
-        console.log("in put route")
         const updatedPost = await postService.updatePost(req.params.id, {
             title: req.body.title,
             content: req.body.content,
@@ -64,7 +66,7 @@ router.put('/:id', async (req, res) => {
 
         res.json(updatedPost);
     } catch (err) {
-        console.log(err)
+        console.error(err)
         res.status(500).json({error: 'Server error'});
     }
 });

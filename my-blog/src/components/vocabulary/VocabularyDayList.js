@@ -13,11 +13,14 @@ import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+
 
 const VocabularyDayList = () => {
     const [vocabulary, setVocabulary] = useState(null);
     const navigate = useNavigate(); // initialize useNavigate
-    
+
 
     const handleDelete = (day) => {
         axios.delete(`${serverAddress}/vocabulary_day/${day}`, {
@@ -25,12 +28,12 @@ const VocabularyDayList = () => {
                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         })
-        .then(res => {
-            setVocabulary(vocabulary.filter(vocabDay => vocabDay.day !== day));
-        })
-        .catch(err => {
-            console.error(err)
-        });
+            .then(res => {
+                setVocabulary(vocabulary.filter(vocabDay => vocabDay.day !== day));
+            })
+            .catch(err => {
+                console.error(err)
+            });
     }
 
     const token = localStorage.getItem('token');
@@ -74,16 +77,20 @@ const VocabularyDayList = () => {
                                         {vocabItem.description}
                                     </Typography>
                                 </Link>
-                                {isAdmin && <Button onClick={() => handleDelete(vocabItem.day)}>Delete</Button>}
+                                {isAdmin &&
+                                    <IconButton aria-label="delete" onClick={() => handleDelete(vocabItem._id)}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                }
                             </CardContent>
                         </Card>
                     </ListItem>
                 ))}
             </List>
-            <Button 
-                variant="contained" 
-                color="primary" 
-                onClick={() => navigate('/create-vocabulary-list')} 
+            <Button
+                variant="contained"
+                color="primary"
+                onClick={() => navigate('/create-vocabulary-list')}
                 style={{ marginBottom: '20px' }}
             >
                 Create Vocabulary Day

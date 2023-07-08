@@ -51,7 +51,11 @@ const CreateVocabularyInDay = () => {
     };
 
     try {
-      await axios.post(`${serverAddress}/vocabulary`, newVocabulary);
+      await axios.post(`${serverAddress}/vocabulary`, newVocabulary , {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       navigate(`/vocabulary/day/${day}`);
     } catch (error) {
       if (error.response && error.response.data) {
@@ -67,29 +71,29 @@ const CreateVocabularyInDay = () => {
       <Typography variant="h4" align="center" gutterBottom>Add New Vocabulary</Typography>
       {error && <Alert severity="error">{error}</Alert>}
       <form className={classes.form} onSubmit={handleSubmit}>
-       <TextField 
+        <TextField
           className={classes.textField}
-          type="text" 
-          label="Day" 
-          value={day} 
-          onChange={(event) => setDay(event.target.value)} 
-          required 
+          type="text"
+          label="Day"
+          value={day}
+          onChange={(event) => setDay(event.target.value)}
+          required
         />
-        <TextField 
+        <TextField
           className={classes.textField}
-          type="text" 
-          label="Word" 
-          value={vocabulary} 
-          onChange={(event) => setVocabulary(event.target.value)} 
-          required 
+          type="text"
+          label="Word"
+          value={vocabulary}
+          onChange={(event) => setVocabulary(event.target.value)}
+          required
         />
-        <TextField 
+        <TextField
           className={classes.textField}
-          type="text" 
-          label="Meaning" 
-          value={vocabularyExplaination} 
-          onChange={(event) => setVocabularyExplaination(event.target.value)} 
-          required 
+          type="text"
+          label="Meaning"
+          value={vocabularyExplaination}
+          onChange={(event) => setVocabularyExplaination(event.target.value)}
+          required
         />
         <Button className={classes.button} variant="contained" color="primary" type="submit">Add</Button>
       </form>

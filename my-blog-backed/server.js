@@ -24,35 +24,7 @@ app.use('/vocabulary', vocabularyRoutes)
 mongoose.connect('mongodb://localhost:27017/my-blog', {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => console.log("MongoDB connected"))
     .catch(err => console.log(err));
-
-
-
-// Middleware to authenticate and authorize user
-function authenticateRole(role) {
-    return function(req, res, next) {
-      // Get token from Authorization header
-      const token = req.header('Authorization').replace('Bearer ', '');
   
-      // Verify token
-      jwt.verify(token, config.secret, (err, decoded) => {
-        if (err) {
-          // If token is invalid, return 401 error
-          return res.status(401).json({ message: 'Invalid token' });
-        } else {
-          // If token is valid, check role
-          if (decoded.role !== role) {
-            // If user does not have correct role, return 403 error
-            return res.status(403).json({ message: 'Forbidden: incorrect role' });
-          } else {
-            // If user has correct role, proceed
-            next();
-          }
-        }
-      });
-    }
-}
-  
-
 
 app.post('/api/login', async (req,res) => {
     const {email, password} = req.body;
@@ -67,10 +39,10 @@ app.post('/api/login', async (req,res) => {
             if (!isMatch) return res.status(400).json({msg: "Invalid credentials"});
 
             if (isMatch && !err) {
-                var token = jwt.sign({ _id: user._id }, config.secret, {
+                var token = jwt.sign({ _id: user._id, role: user.role }, config.secret, {
                     expiresIn: 604800 // 1 week
                 });
-                return res.json({ success: true, token: 'JWT ' + token, msg: "successfully logged in"});
+                return res.json({ success: true, token: token, msg: "successfully logged in"});
             } else {
                 res.status(401).json({ message: 'Authentication failed. Wrong password.' });
             }

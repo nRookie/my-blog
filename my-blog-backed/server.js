@@ -7,6 +7,8 @@ const config = require('./config')
 const postRoutes = require('./routes/post.routes');
 const vocabularyRoutes = require('./routes/vocabulary.routes')
 const vocabularyDayRoutes = require('./routes/vocabulary.day.routes');
+const nodemailer = require('nodemailer');
+
 
 const app = express();
 
@@ -24,7 +26,48 @@ app.use('/vocabulary', vocabularyRoutes)
 mongoose.connect('mongodb://localhost:27017/my-blog', {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => console.log("MongoDB connected"))
     .catch(err => console.log(err));
-  
+
+
+
+// Create transporter object for nodemailer using SMTP 
+let transporter = nodemailer.createTransport({
+    service : 'gmail',
+    auth: {
+        user: 'learningjapaneseblog2023@gmail.com',
+        pass: 'learningjapaneseqna01',
+    }
+})
+
+
+app.post('/invite-admin', (req, res) => {
+    const { email } = req.body;
+
+    // Check if the user already exists, etc...
+
+    // Generate an invitation token
+    const invitationToken = jwt.sign({ email, date: Date.now() }, 'your-secret-key', { expiresIn: '1d' });
+
+    // Construct invitation link
+    const invitationLink = `http://yourfrontend.com/complete-registration?token=${invitationToken}`;
+
+    // Send email with invitation link
+    let mailOptions = {
+        from: 'learningjapaneseblog2023@gmail.com',
+        to: email,
+        subject: 'Admin Invitation',
+        text: `You have been invited to become an admin. Please click on the following link to complete your registration: ${invitationLink}`
+    };
+    transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send(err);
+        } else {
+            console.log(`Email sent: ${info.response}`);
+            res.status(200).send(`Invitation sent to ${email}`);
+        }
+    });
+});
+
 
 app.post('/api/login', async (req,res) => {
     const {email, password} = req.body;

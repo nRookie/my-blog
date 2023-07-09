@@ -89,7 +89,8 @@ app.post('/activate_admin', async (req, res) => {
 });
 
 
-app.put('api/users/role', async (req, res) => {
+app.put('/api/users/role', async (req, res) => {
+    console.log("in role")
     const { email, role } = req.body;
 
     // validation

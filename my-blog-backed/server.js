@@ -89,8 +89,34 @@ app.post('/activate_admin', async (req, res) => {
 });
 
 
+app.put('api/users/role', async (req, res) => {
+    const { email, role } = req.body;
 
-app.post('/invite-admin', (req, res) => {
+    // validation
+    if (!email || !role) {
+        return res.status(400).json({ error: 'Email and role are required' });
+    }
+
+    try {
+        const user = await User.findOne({ email: email });
+        if (!user) {
+            return res.status(400).json({ error: 'User not found' });
+        }
+
+        user.role = role;
+        await user.save();
+
+        return res.json({ message: 'User role updated successfully' });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+
+
+app.post('/api/users/invite', (req, res) => {
     const { email } = req.body;
 
     // Check if the user already exists, etc...

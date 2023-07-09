@@ -6,6 +6,7 @@
 2. add invitation method to invite admins
 - invitation button in front end
 - complete registration
+- admin page, (only let admin access this page)
 
 1. show different page based on the user role.
 3. add multiple meaning.

@@ -26,7 +26,8 @@ import { ErrorBoundary } from 'react-error-boundary';
 import CreateVocabularyDay from "./components/vocabulary/CreateVocabularyDay";  // You may need to install this package
 import CreateVocabularyInDay from './components/vocabulary/CreateVocabulariesInDay';
 import CompleteRegistration from './components/Auth/CompleteRegistration';
-
+import Admin from './components/Admin/Admin';
+import AdminRoute from './components/Route/adminRoute';
 
 function ErrorFallback({ error }) {
     return (
@@ -74,6 +75,7 @@ function App() {
                        <Route path="/login" element={<LoginPage />} />
                        <Route path="/register" element={<RegistrationPage />} />
                        <Route path="/complete-registration" element={<CompleteRegistration /> } />
+                       <AdminRoute path="/admin" element={<Admin />} />
                 </Routes>
                 <Footer/>
             </div>

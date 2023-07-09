@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Button, TextField, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import serverAddress from '../../config';
 const Admin = () => {
     const [email, setEmail] = useState('');
     const [role, setRole] = useState('');
@@ -26,7 +26,7 @@ const Admin = () => {
 
     const handleSubmitRoleChange = async () => {
         try {
-            await axios.put('/api/users/role', { email, role });
+            await axios.put(`${serverAddress}/api/users/role`, { email, role });
             alert('User role updated successfully');
         } catch (error) {
             console.error(error);
@@ -36,7 +36,7 @@ const Admin = () => {
 
     const handleSubmitInvite = async () => {
         try {
-            await axios.post('/api/users/invite', { email: inviteEmail });
+            await axios.post(`${serverAddress}/api/users/invite`, { email: inviteEmail });
             alert('Invitation sent successfully');
         } catch (error) {
             console.error(error);

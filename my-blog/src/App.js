@@ -25,7 +25,7 @@ import {Provider} from "react-redux";
 import { ErrorBoundary } from 'react-error-boundary';
 import CreateVocabularyDay from "./components/vocabulary/CreateVocabularyDay";  // You may need to install this package
 import CreateVocabularyInDay from './components/vocabulary/CreateVocabulariesInDay';
-
+import CompleteRegistration from './components/Auth/CompleteRegistration';
 
 
 function ErrorFallback({ error }) {
@@ -73,6 +73,7 @@ function App() {
                        <Route path="edit-vocabulary/:id" element={<EditVocabulary />} />
                        <Route path="/login" element={<LoginPage />} />
                        <Route path="/register" element={<RegistrationPage />} />
+                       <Route path="/complete-registration" element={<CompleteRegistration /> } />
                 </Routes>
                 <Footer/>
             </div>

@@ -39,6 +39,57 @@ let transporter = nodemailer.createTransport({
 })
 
 
+app.post('/activate_admin', async (req, res) => {
+  try {
+    const token = req.headers.authorization.split(' ')[1];  // Extract token from Bearer
+    
+    if (!token) {
+        return res.status(401).json({ message: 'No token, authorization denied' });
+    }
+
+    try {
+        const decoded = jwt.verify(token, config.secret);  // replace with your JWT secret
+    
+        res.json(decoded);
+      } catch (err) {
+        res.status(400).json({ message: 'Token is not valid' });
+    }
+
+    const { email, password } = req.body;
+
+    if (email !== decoded.email) {
+        return res.status(401).json({ message: 'Token does not match user' });
+    }
+
+    // check if user already exists
+    let user = await User.findOne({ email });
+    
+    if (!user) {
+      return res.status(400).json({ message: 'User does not exist' });
+    }
+
+    if (user.password) {
+      return res.status(400).json({ message: 'User is already registered' });
+    }
+
+    // encrypt password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    
+    // save the hashed password to the user record
+    user.password = hashedPassword;
+    user.role = 'admin'
+    await user.save();
+
+    res.json({ message: 'Registration completed successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
+
 app.post('/invite-admin', (req, res) => {
     const { email } = req.body;
 
@@ -68,6 +119,7 @@ app.post('/invite-admin', (req, res) => {
     });
 });
 
+  
 
 app.post('/api/login', async (req,res) => {
     const {email, password} = req.body;

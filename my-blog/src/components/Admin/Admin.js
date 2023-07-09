@@ -1,12 +1,24 @@
 // Admin.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, TextField, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Admin = () => {
     const [email, setEmail] = useState('');
     const [role, setRole] = useState('');
     const [inviteEmail, setInviteEmail] = useState('');
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        // Here you can add the logic to check if the user is an admin
+        // For now I'll just use a placeholder boolean
+        const isAdmin = true;
+
+        if (!isAdmin) {
+            navigate('/login');
+        }
+    }, []);
 
     const handleChangeRole = (event) => {
         setRole(event.target.value);
@@ -14,7 +26,6 @@ const Admin = () => {
 
     const handleSubmitRoleChange = async () => {
         try {
-            // Make a request to the backend to change the role of the user
             await axios.put('/api/users/role', { email, role });
             alert('User role updated successfully');
         } catch (error) {
@@ -25,7 +36,6 @@ const Admin = () => {
 
     const handleSubmitInvite = async () => {
         try {
-            // Make a request to the backend to invite the user
             await axios.post('/api/users/invite', { email: inviteEmail });
             alert('Invitation sent successfully');
         } catch (error) {

@@ -6,6 +6,7 @@ import axios from 'axios';
 const EditVocabularyDay = () => {
     const [vocabularyDay, setVocabularyDay] = useState({});
     const { day } = useParams();
+    console.log(day)
     // Fetch the vocabulary day when the component mounts
     useEffect(() => {
         axios.get(`${serverAddress}/vocabularyday/${day}`)

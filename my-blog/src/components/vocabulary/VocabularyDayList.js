@@ -79,7 +79,7 @@ const VocabularyDayList = () => {
                                 </Link>
                                 {isAdmin &&(
                                     <>
-                                    <Link component={RouterLink} to={`/edit-vocabularyday/${vocabItem._id}`}>
+                                    <Link component={RouterLink} to={`/edit-vocabularyday/${vocabItem.day}`}>
                                             <Button variant="contained" color="primary">Edit</Button>
                                     </Link>
                                     <IconButton aria-label="delete" onClick={() => handleDelete(vocabItem._id)}>

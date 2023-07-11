@@ -156,9 +156,8 @@ app.post('/api/login', async (req,res) => {
         if (!user)
             return res.status(400).json( {msg: "User not exists"});
 
-        console.log(user)
         user.comparePassword(password, (err, isMatch) => {
-            if (!isMatch) return res.status(400).json({msg: "Invalid credentials"});
+            if (!isMatch) return res.status(401).json({message: "Invalid credentials"});
 
             if (isMatch && !err) {
                 var token = jwt.sign({ _id: user._id, role: user.role }, config.secret, {

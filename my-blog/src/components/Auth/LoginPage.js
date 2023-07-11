@@ -50,9 +50,9 @@ const LoginPage = () => {
       // Store the token to local storage
       localStorage.setItem('token', res.data.token);
       navigate('/home');
-    } catch (error) {
-      if (error.response && error.response.data) {
-        setError(error.response.data.error);
+    } catch (err) {
+      if (err.response && err.response.data) {
+        setError(err.response.data.message);
       } else {
         setError('An error occurred while logging in.');
       }

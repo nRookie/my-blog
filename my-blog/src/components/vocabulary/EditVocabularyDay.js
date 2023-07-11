@@ -6,10 +6,9 @@ import axios from 'axios';
 const EditVocabularyDay = () => {
     const [vocabularyDay, setVocabularyDay] = useState({});
     const { day } = useParams();
-    console.log(day)
     // Fetch the vocabulary day when the component mounts
     useEffect(() => {
-        axios.get(`${serverAddress}/vocabularyday/${day}`)
+        axios.get(`${serverAddress}/vocabulary_day/${day}`)
             .then(response => setVocabularyDay(response.data))
             .catch(error => console.error(`There was an error retrieving the vocabulary day: ${error}`));
     }, []);
@@ -22,7 +21,7 @@ const EditVocabularyDay = () => {
     // Handle the form submission
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.put(`${serverAddress}/vocabularyday/${day}`, vocabularyDay)
+        axios.put(`${serverAddress}/vocabulary_day/${day}`, vocabularyDay)
             .then(() => console.log('Vocabulary Day Updated'))
             .catch(error => console.error(`There was an error updating the vocabulary day: ${error}`));
     }

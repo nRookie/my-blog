@@ -40,6 +40,7 @@ router.delete('/:day', authenticateRole('admin'), async (req,res) =>  {
 
 router.get('/:day', async (req,res) =>  {
   try {
+    console.log("in get vocabulary day by day")
     const {day} = req.params;
     const vocabularyDay = await vocabularyDayService.getVocabularyDay(day)
     if (!vocabularyDay) {

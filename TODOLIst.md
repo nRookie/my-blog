@@ -6,8 +6,6 @@
 2. add invitation method to invite admins
 - invitation button in front end
 - complete registration
-- admin page, (only let admin access this page)
-
 1. show different page based on the user role.
 3. add multiple meaning.
 4. add sample sentence.
@@ -26,7 +24,10 @@ maybe delete all the vocabulary in a day  when the day is deleted.
 
 
 
-## important
+
+
+## email, cannot setup oauth playground message.
+
 
 In this example, Gmail is used as the SMTP server. If you plan to use Gmail, you'll need to allow less secure apps on the Gmail account. It is generally better to use a transactional email service for sending emails in production.
 
@@ -41,7 +42,10 @@ password and email in the requestbody directly, might be not safe ?
 sentence
 
 
-### bug show error message if login failed
+Authorized redirect URIs
+For use with requests from a web server
 
-## first
 
+## convert from http to https
+
+ 

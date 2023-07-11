@@ -2,23 +2,26 @@
 import React, { useState, useEffect } from 'react';
 import { Button, TextField, Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 import axios from 'axios';
+import jwt_decode from 'jwt-decode'
 import { useNavigate } from 'react-router-dom';
 import serverAddress from '../../config';
 const Admin = () => {
     const [email, setEmail] = useState('');
+    const [isAdmin, setIsAdmin] = useState(false)
     const [role, setRole] = useState('');
     const [inviteEmail, setInviteEmail] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Here you can add the logic to check if the user is an admin
-        // For now I'll just use a placeholder boolean
-        const isAdmin = true;
-
+        const token = localStorage.getItem('token');
+        if (token) {
+            const decodedToken = jwt_decode(token);
+            setIsAdmin(decodedToken.role === 'admin');
+        }
         if (!isAdmin) {
             navigate('/login');
         }
-    }, []);
+    }, [isAdmin, navigate]);
 
     const handleChangeRole = (event) => {
         setRole(event.target.value);

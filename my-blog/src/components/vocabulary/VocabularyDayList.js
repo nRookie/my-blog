@@ -77,16 +77,16 @@ const VocabularyDayList = () => {
                                         {vocabItem.description}
                                     </Typography>
                                 </Link>
-                                {isAdmin &&
-                                <>
-                                    <Link to={`/edit-vocabulary/${vocabItem._id}`}>
+                                {isAdmin &&(
+                                    <>
+                                    <Link component={RouterLink} to={`/edit-vocabularyday/${vocabItem._id}`}>
                                             <Button variant="contained" color="primary">Edit</Button>
                                     </Link>
                                     <IconButton aria-label="delete" onClick={() => handleDelete(vocabItem._id)}>
                                         <DeleteIcon />
                                     </IconButton>
-                                </>
-                                }
+                                    </>
+                                )}
                             </CardContent>
                         </Card>
                     </ListItem>

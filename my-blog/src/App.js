@@ -13,7 +13,8 @@ import HomePage from './components/HomePage';
 import Vocabulary from "./components/vocabulary/Vocabulary";
 import VocabularyDayList from "./components/vocabulary/VocabularyDayList";
 import VocabularyDay from "./components/vocabulary/VocabularyDay";
-import EditVocabulary from "./components/vocabulary/EditVocabulary"
+import EditVocabulary from "./components/vocabulary/EditVocabulary";
+import EditVocabularyDay from './components/vocabulary/EditVocabularyDay';
 import LoginPage from './components/Auth/LoginPage';
 import RegistrationPage from './components/Auth/RegistrationPage';
 import { AuthContext } from './components/reactContext';
@@ -71,6 +72,7 @@ function App() {
                        <Route path="/create-vocabulary-list" element={<CreateVocabularyDay />}/>
                        <Route path="/create-vocabulary-in-day" element={<CreateVocabularyInDay />}/>
                        <Route path="edit-vocabulary/:id" element={<EditVocabulary />} />
+                       <Route path="/edit-vocabularyday/:id" element={<EditVocabularyDay />} />
                        <Route path="/login" element={<LoginPage />} />
                        <Route path="/register" element={<RegistrationPage />} />
                        <Route path="/complete-registration" element={<CompleteRegistration /> } />

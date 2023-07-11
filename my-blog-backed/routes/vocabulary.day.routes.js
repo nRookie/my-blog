@@ -38,4 +38,35 @@ router.delete('/:day', authenticateRole('admin'), async (req,res) =>  {
   }
 });
 
+router.get('/:day', async (req,res) =>  {
+  try {
+    const {day} = req.params;
+    const vocabularyDay = await vocabularyDayService.getVocabularyDay(day)
+    if (!vocabularyDay) {
+      res.status(404).json({ error: 'vocabulary day not found' });
+    }
+    res.json(vocabularyDay)
+  } catch {
+    res.status(500).json({ message: 'An error occurred while deleting the vocabulary day', error });
+  }
+});
+
+
+
+router.put('/:day', authenticateRole('admin'), async (req, res) => {
+  try {
+      const updatedVocabularyDay = await vocabularyService.updateVocabularyDay(req.params.day, {
+          vocabulary: req.body.vocabulary,
+          vocabularyExplaination: req.body.vocabularyExplaination,
+          description: req.body.description,
+      })
+      res.json(updatedVocabularyDay);
+  } catch (err) {
+      if (err.message == 'Vocabulary day not found') {
+          res.status(404).json({ error: 'Vocabulary day not found' });
+      }
+      res.status(500).json({ error: 'Server error' })
+  }
+})
+
 module.exports = router;

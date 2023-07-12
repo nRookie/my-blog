@@ -20,7 +20,11 @@ const EditVocabularyDay = () => {
     // Handle the form submission
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.put(`${serverAddress}/vocabulary_day/${day}`, vocabularyDay)
+        axios.put(`${serverAddress}/vocabulary_day/${day}`, vocabularyDay, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        })
             .then(() => console.log('Vocabulary Day Updated'))
             .catch(error => console.error(`There was an error updating the vocabulary day: ${error}`));
     }

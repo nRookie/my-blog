@@ -56,7 +56,8 @@ router.get('/:day', async (req,res) =>  {
 
 router.put('/:day', authenticateRole('admin'), async (req, res) => {
   try {
-      const updatedVocabularyDay = await vocabularyService.updateVocabularyDay(req.params.day, {
+      console.log("in update")
+      const updatedVocabularyDay = await vocabularyDayService.updateVocabularyDay(req.params.day, {
           vocabulary: req.body.vocabulary,
           vocabularyExplaination: req.body.vocabularyExplaination,
           description: req.body.description,
@@ -65,8 +66,10 @@ router.put('/:day', authenticateRole('admin'), async (req, res) => {
   } catch (err) {
       if (err.message == 'Vocabulary day not found') {
           res.status(404).json({ error: 'Vocabulary day not found' });
+      } else {
+        console.log(err)
+        res.status(500).json({ error: 'Server error' })
       }
-      res.status(500).json({ error: 'Server error' })
   }
 })
 

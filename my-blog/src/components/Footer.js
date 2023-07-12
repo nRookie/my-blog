@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Container, Box } from '@material-ui/core';
+import { Typography, Container, Box, Link } from '@material-ui/core';
 import { GitHub, Instagram, Facebook } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
@@ -31,9 +31,15 @@ const Footer = () => {
                     © 2023 - All rights reserved
                 </Typography>
                 <Box className={classes.icons}>
-                    <GitHub fontSize="large" />
-                    <Instagram fontSize="large" />
-                    <Facebook fontSize="large" />
+                    <Link href="https://github.com/nRookie" color="inherit">
+                        <GitHub fontSize="large" />
+                    </Link>
+                    <Link href="https://instagram.com/kestrel625" color="inherit">
+                        <Instagram fontSize="large" />
+                    </Link>
+                    <Link href="https://facebook.com/yourusername" color="inherit">
+                        <Facebook fontSize="large" />
+                    </Link>
                 </Box>
             </Container>
         </footer>

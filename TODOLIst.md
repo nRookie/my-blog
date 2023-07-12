@@ -2,7 +2,6 @@
 
 
 ## 
-
 2. add invitation method to invite admins
 - invitation button in front end
 - complete registration
@@ -10,7 +9,6 @@
 3. add multiple meaning.
 4. add sample sentence.
 5. add different language translation
-6. add https 
 ## bug
 
 1. there is a lagging when updating vocabulary
@@ -48,4 +46,11 @@ For use with requests from a web server
 
 ## convert from http to https
 
- 
+
+
+
+
+## TODO
+
+how to makes the video only played in certain websites
+

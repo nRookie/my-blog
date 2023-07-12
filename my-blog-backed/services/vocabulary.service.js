@@ -12,6 +12,7 @@ exports.updateVocabulary = async (id, updateData) => {
 
   vocabulary.vocabulary = updateData.vocabulary || vocabulary.vocabulary;
   vocabulary.vocabularyExplaination = updateData.vocabularyExplaination || vocabulary.vocabularyExplaination;
+  vocabulary.hiragana = updateData.hiragana || vocabulary.hiragana;
 
   return await vocabulary.save();
 };

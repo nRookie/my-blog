@@ -19,6 +19,7 @@ const EditVocabulary = () => {
     const [vocabulary, setVocabulary] = useState(null);
     const [vocabInput, setVocabInput] = useState('');
     const [vocabExplainationInput, setVocabExplainationInput] = useState('');
+    const [hiraganaInput, setHiraganaInput] = useState('')
     const [openSnackbar, setOpenSnackbar] = useState(false);
     const navigate = useNavigate();
 
@@ -27,6 +28,7 @@ const EditVocabulary = () => {
             .then(res => {
                 setVocabulary(res.data);
                 setVocabInput(res.data.vocabulary);
+                setHiraganaInput(res.data.hiragana)
                 setVocabExplainationInput(res.data.vocabularyExplaination);
             })
             .catch(err => {
@@ -38,6 +40,7 @@ const EditVocabulary = () => {
         event.preventDefault();
         const updatedVocabulary = {
             vocabulary: vocabInput,
+            hiragana : hiraganaInput,
             vocabularyExplaination: vocabExplainationInput,
         };
         axios.put(`${serverAddress}/vocabulary/id/${id}`, updatedVocabulary, {
@@ -81,6 +84,14 @@ const EditVocabulary = () => {
                                 onChange={(e) => setVocabInput(e.target.value)}
                                 required
                                 fullWidth
+                            />
+                            <TextField
+                                label="hiragana"
+                                value={hiraganaInput}
+                                onChange={(e) => setHiraganaInput(e.target.value)}
+                                required
+                                fullWidth
+                                multiline
                             />
                             <TextField
                                 label="Vocabulary Explanation"

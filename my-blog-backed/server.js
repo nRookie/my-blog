@@ -2,7 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const User = require('./models/User'); 
+const https = require('https');
 const jwt = require('jsonwebtoken');
+const fs = require('fs');
 const config = require('./config')
 const postRoutes = require('./routes/post.routes');
 const vocabularyRoutes = require('./routes/vocabulary.routes')
@@ -203,6 +205,14 @@ app.post('/api/register', async(req, res) => {
 })
 
 
+var options = {
+    key: fs.readFileSync('/Users/kestrel/playground/js/react-project/my-blog-backed/localhost-key.pem'),
+    cert: fs.readFileSync('/Users/kestrel/playground/js/react-project/my-blog-backed/localhost.pem')
+  };
+
+  
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => console.log(`Server is running on port ${port}`));
+https.createServer(options, app).listen(3000, function() {
+    console.log('HTTPS Server running on port 3000');
+  });

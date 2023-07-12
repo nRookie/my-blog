@@ -41,7 +41,11 @@ const CreateVocabularyDay = () => {
     };
 
     try {
-      await axios.post(`${serverAddress}/vocabulary_day`, newVocabularyDay);
+      await axios.post(`${serverAddress}/vocabulary_day`, newVocabularyDay, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
       navigate('/Vocabulary');
     } catch (error) {
       if (error.response && error.response.data) {
